@@ -5,7 +5,7 @@ using UnityEngine;
 public class Interactable : MonoBehaviour {
     public float maxdistance = 3f;
     public float distancia;
-    public GameObject gal;
+   
     // Use this for initialization
     void Start () {
 		
@@ -17,10 +17,11 @@ public class Interactable : MonoBehaviour {
         
     }
 
+    
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, maxdistance);
+        Gizmos.DrawWireSphere(GameObject.Find("Cube").transform.position, maxdistance);
     }
 
 }
