@@ -2,57 +2,88 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
+
+
+public class CameraController : MonoBehaviour
+{
+
+    public GameObject myPlayer;
+    // public GameObject myReferencia;
+    private Vector3 myCamara;
+ //   private Vector3 myPlayer;
+    [Range(0.01f, 1.0f)]
+    public float smothFactor = 0.5f;
+  //  public bool miramyPlayerTransform = false;
+  //  public bool rotamyPlayerTransform = true;
+    public float velocidadRotacion = 5.0f;
+    public float velocidadRotacion1 = 40.0f;
+ //   private Vector3 angularVector = new Vector3(0, 0, 0);
+
+    // public Vector3 myCamara;
 
     //Vector2 touchDeltaPosition;
 
     //public Camera camara;
-    public float velocidadDrag = 1f;
-    private Vector3 origen;
+    //public Transform myPlayer;
+    //public float velocidadDrag = 1f;
+    //private Vector3 origen;
     //public float velocidadZoom;
     //public bool zooming;
 
     void Start()
     {
-        /*RaycastHit hit;
-        Ray ray = camara.ScreenPointToRay(Input.mousePosition);
+        myCamara = transform.position - myPlayer.transform.position;
+    //    angularVector = new Vector3(0, velocidadRotacion1 * Time.deltaTime, 0);
+      //  myPlayer = myPlayerTransform.transform.position;
 
-        if (Physics.Raycast(ray, out hit))
+        
+    }
+
+    void LateUpdate()
+    {
+
+
+       // if (rotamyPlayerTransform){
+        
+            //  float angle = Vector3.Angle(myCamara, myPlayer);
+            Debug.Log(myCamara);
+            Quaternion giroCamara = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * velocidadRotacion, Vector3.up);
+            //Quaternion girillo = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * velocidadRotacion, Vector3.up);
+            Quaternion altoCamara = Quaternion.AngleAxis(Input.GetAxis("Mouse Y") * velocidadRotacion, Vector3.right);
+            //   Quaternion red = Quaternion.Euler(Input.GetAxis("Mouse X")*velocidadRotacion, 0, 0);
+
+            if (Input.GetButton("MousePulsadoDer"))
+            {
+                myCamara = giroCamara * altoCamara * myCamara;
+
+            }
+
+
+
+    //    }
+        Vector3 nuevaPosicionCamara = myPlayer.transform.position + myCamara;
+
+        transform.position = Vector3.Slerp(transform.position, nuevaPosicionCamara, smothFactor);
+        //myPlayerTransform.transform.rotation = myPlayerTransform.transform.rotation + myPlayer;
+        // transform.posiz = Vector3.Slerp(transform.position, nuevaPosicionmyPlayerTransform, smothFactor);
+
+
+      /*  if (miramyPlayerTransform || rotamyPlayerTransform)
+        {*/
+            transform.LookAt(myPlayer.transform.position);
+      //  }
+
+       /* if (Input.GetButton("MousePulsadoDer"))
         {
-            Transform objectHit = hit.transform;
-
-            //Creo que va a ser necesario para cuando la cámara pueda encontrarse con objetos en la escena, pero no consigo que funcione
+            myPlayerTransform.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * Time.deltaTime * velocidadRotacion1);
         }*/
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(1))    //1 para el boton derecho
-        {
-            Debug.Log("Boton derecho pulsado");
-            origen = Input.mousePosition;
-            return;
-        }
-        if (!Input.GetMouseButton(1)) return;
-
-        Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - origen);   //aqui me salta un error al probarlo de referencia nula
-        Vector3 move = new Vector3(pos.x * velocidadDrag, 0, pos.y * velocidadDrag);
-
-        transform.Translate(move, Space.World);
-        transform.Rotate(move, Space.Self);
-    }
 
 
 
-    /*  if (zooming)
-      {
-          Ray rayo = camara.ScreenPointToRay(Input.mousePosition);
-          float distanciaZoom = velocidadZoom * Input.GetAxis("Vertical") * Time.deltaTime;
-          camara.transform.Translate(rayo.direction * distanciaZoom, Space.World);
-      }*/
 
 
 
 }
-
 
