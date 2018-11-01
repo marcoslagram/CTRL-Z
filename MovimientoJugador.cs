@@ -4,75 +4,67 @@ using UnityEngine;
 
 public class MovimientoJugador : MonoBehaviour {
 
-    [SerializeField] private float velocidad = 2f;
-    [SerializeField] private float velocidadCarrera = 10f;
 
-
-    private Transform myTransform;
+   [SerializeField] private float velocidad = 2;
+   [SerializeField] private float velocidadCarrera = 10;
+    private Vector3 teclas = new Vector3(0, 0, 0);
+    private Vector3 movimiento = new Vector3(0, 0, 0);
+    [SerializeField] private float velocidadGiro = 60; //degrees
+    private Vector3 giroJugador = new Vector3(0, 0, 0);
 
     // Use this for initialization
-    void Start () {
-        
-        myTransform = GetComponent<Transform>();
-    }
-	
-	// Update is called once per frame
-	void Update ()
+    void Start()
     {
+       giroJugador = new Vector3(0, velocidadGiro * Time.deltaTime, 0);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
         DesplazamientoNormal();
-        Correr();
-        Saltar();
+        Rotar();
+        if (Input.GetButton("Correr")) { 
+        Carrera();}
+
     }
 
-    private void DesplazamientoNormal()
+    public void DesplazamientoNormal()
     {
-        if (Input.GetKey(KeyCode.W))  //cuando pulsas W va hacia adelante
-        {
-            myTransform.Translate(new Vector3(0, 0, velocidad) * Time.deltaTime);
-        }
+        teclas.x = Input.GetAxis("Horizontal");
+        teclas.z = Input.GetAxis("Vertical");
 
-        if (Input.GetKey(KeyCode.S))  //cuando pulsas S va hacia atrás
-        {
-            myTransform.Translate(new Vector3(0, 0, -velocidad) * Time.deltaTime);
-        }
+        teclas = teclas.normalized;
+        movimiento = teclas * velocidad * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.A))  //cuando pulsas A va hacia la izquierda
-        {
-            myTransform.Translate(new Vector3(velocidad, 0, 0) * Time.deltaTime);
-        }
 
-        if (Input.GetKey(KeyCode.D))  //cuando pulsas D va hacia la derecha
-        {
-            myTransform.Translate(new Vector3(-velocidad, 0, 0) * Time.deltaTime);
-        }
+        transform.Translate(movimiento);
     }
 
-    private void Correr()
-    {
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))  //cuando pulsas W va hacia adelante
-        {
-            myTransform.Translate(new Vector3(0, 0, velocidadCarrera) * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.S))  //cuando pulsas S va hacia atrás
-        {
-            myTransform.Translate(new Vector3(0, 0, -velocidadCarrera) * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift)&& Input.GetKey(KeyCode.A))  //cuando pulsas A va hacia la izquierda
-        {
-            myTransform.Translate(new Vector3(velocidadCarrera, 0, 0) * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift)&& Input.GetKey(KeyCode.D))  //cuando pulsas D va hacia la derecha
-        {
-            myTransform.Translate(new Vector3(-velocidadCarrera, 0, 0) * Time.deltaTime);
-        }
-    }
-
-    private void Saltar()
+    public void Rotar()
     {
 
+        if (Input.GetKey(KeyCode.Z))
+        {
+            transform.eulerAngles -= giroJugador;
+        }
+        if (Input.GetKey(KeyCode.X))
+        {
+            transform.eulerAngles += giroJugador;
+        }
+
     }
 
+
+        public void Carrera()
+    {
+        teclas.x = Input.GetAxis("Horizontal");
+        teclas.z = Input.GetAxis("Vertical");
+
+        teclas = teclas.normalized;
+        movimiento = teclas * velocidadCarrera * Time.deltaTime;
+
+
+        transform.Translate(movimiento);
+    }
 }
