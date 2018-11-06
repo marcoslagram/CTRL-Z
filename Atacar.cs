@@ -2,31 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Atacar : MovimientoJugador{
-
-    public GameObject enemy;
-
-   /* void Awake()
-    {
-        GameObject clone = (GameObject)Instantiate(enemy, transform.position, Quaternion.identity);
-        Destroy(clone, 1.0f);
-    }*/
+public class Atacar : MovimientoJugador
+{
+    public GameObject enemy, player;
+  
 
     // Use this for initialization
-    void Start () {
-        //Instantiate(enemy); //creo que esta es la linea que lo duplica pero si la quitas no hace nada
+    void Start()
+    {
+     
+        player = GameObject.Find("Cube");
         enemy = GameObject.Find("Sphere");
-      
+
     }
 
     // Update is called once per frame
-    void Update(){
-       if (Input.GetMouseButton(0))  //cuando haces click con el boton izquierdo del raton se va a la linea siguiente
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.K))         //Input.GetMouseButton(0), con esto no funciona
         {
-            Debug.Log("Click");      //esto es para detectar el click del mouse pero tampoco me muestra nada en Console
-            GameObject.Destroy(enemy);         //aqui lo destruye, en teoria
+            Debug.Log("Actúo sobre el enemigo");
+            Destroy(enemy);
         }
-        
+
+        if (Input.GetMouseButton(0)) Debug.Log("Detecto el click");  //no detecta el click
+
     }
 
 }
+
+
