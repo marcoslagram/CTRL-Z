@@ -1,0 +1,26 @@
+Añadir el Script en Unity a balizas:
+
+INSTALACION DE BALIZAS:
+Una baliza en un Empty object (GameObject -> Create Empty)
+Para poner la malla de balizas, distribuir las balizas en las zonas recorribles del escenario,
+distribuirlas de forma lo más uniforme posible por el escenario. Todas sobre el suelo (Altura Y = 0)
+Asignar el Script Punto.cs a todas y cada una de las balizas de la malla.
+
+CONFIGURAR LAS BALIZAS:
+El script de las balizas tiene dos parámetros de entrada:
+	Valor probabilidad, se inicializa por defecto a 0 a no ser que se necesite dar un valor mayor de entrada
+	Distancia_maxima, este es IMPORTANTE hay que asignarle el valor del tamaño máximo del escenario, como mínimo 1,4 veces el lado máximo del escenario.
+Es imprescindible nombrar en Tag del objeto jugador como "Player", en caso contrario hay que modificar el script cambiando la línea
+Player = GameObject.FindWithTag("Player").transform;
+Cambiando "Player" por el nombre que haya en el Tag del jugador (con comillas)
+
+FUNCIONAMIENTO DE LAS BALIZAS:
+Las balizas efectúan cada segundo una medición de la distancia al jugador en relación con el tamaño del escenario.
+Cada una irá aumentando el valor de probabiliad de forma inversamente proporcional a la distancia a la que se sitúe
+el jugador.
+El valor de probabilidad se puede ver en tiempo real en las propiedades de cada baliza.
+
+Pruebas a hacer:
+-Situar al personaje jugable en el punto exacto donde se sitúan las balizas.
+-Comprobar que no se decrementa el valor probabilidad cuando el jugador se sitúe en los puntos diametralmente opuestos
+	a la baliza -> En ese caso es necesario aumentar el valor de la variable de entrada Distancia_maxima

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Punto : MonoBehaviour {
 
-	[SerializeField]  public float valorProbabilidad = 0f; //Cada punto tiene una probabilidad
+	[SerializeField]  public float valorProbabilidad = 1f; //Cada punto tiene una probabilidad
 	[SerializeField] readonly int interval = 1; //La funcion se actualiza cada segundo
     [SerializeField] public int distancia_maxima = 40; //Para tener en cuenta la distancia hay que saber cuál es la distancia máxima del campo
 	float nextTime = 0;

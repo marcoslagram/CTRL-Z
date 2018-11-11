@@ -1,0 +1,22 @@
+Zombi Beta 2
+
+Añadir el Script en Unity al asset Zombi
+MUY IMPORTANTE TENER LAS BALIZAS DISTRIBUIDAS ANTES DE MOVER EL ZOMBI
+Al asset Zombi hay que añadirle en el Instpector de Unity el componente Rigidbody con la casilla activada "Use Gravity"
+Añadir también el componente "Nav Mesh Agent" y configurar la velocidad.
+En el escenario hay que tener difinida el área transitable. La misma que para el Jugador
+Finalmente hay que añadirle el componente del script Zombi.cs y configurarlo.
+Para configurar el Script hay que desplegar el apartado Balizas y escribir en Size el número de balizas instaladas en el escenario. A continuación por cada uno de los Element añadir un objeto Punto distinto.
+En el valor de entrada umbral de Perseguimiento escribir el valor por debajo del cual el zombi perseguirá aljugador.
+En el valor Distancia_maxima escribir el mismo valor que se asigna a los objetos Punto.
+
+Funcionamiento del Zombi:
+Inicialmente el Zombi irá a un punto del terreno de forma aleatoria. En cuanto se acerque a la baliza elegirá otra con una probabilidad directamente proporcional al valor de Probabilidad que marque cada baliza (Este valor dependerá del tiempo y lo cerca que esté el jugador de cada una de las balizas) Esto se repetirá a no ser que se acerque al jugador por debajo del umbral de persecución (variable umbral Perseguimiento que hay que configurar con anterioridad).
+Si el jugador se aleja del umbral de presecución, el Zombi volverá a elegir una baliza como destino con una probabilidad proporcional al valor de la variable valorProbabilidad de cada Punto.
+La funcionalidad de distracción aún no está implementada en espera de que se implementen los objetos distractores en el juego.
+
+Pruebas a hacer:
+El zombi tiene habilitado para depuración Prints en los valores que recoge de cada baliza. Comprobar que no se lanza ninguna excepción Index Out of Bounds.
+Para comprobar bien el funcionamiento del mapa de calor generado por las balizas hay que ajustar los valores de estas acorde con el escenario real.
+
+NOTA: En este archivo se suele usar indistintamente el término Punto y Baliza. Punto es el nombre del objeto en el juego así como el nombre del Script. El zombi interpreta como Balizas los puntos. De ahí la ambigüedaddel término.
