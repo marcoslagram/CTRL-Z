@@ -1,0 +1,28 @@
+Zombi Beta 3
+
+Añadir el Script en Unity al asset Zombi
+MUY IMPORTANTE TENER LAS BALIZAS DISTRIBUIDAS ANTES DE MOVER EL ZOMBI
+Al asset Zombi hay que añadirle en el Instpector de Unity el componente Rigidbody con la casilla activada "Use Gravity"
+Añadir también el componente "Nav Mesh Agent" y configurar la velocidad.
+En el escenario hay que tener difinida el área transitable. La misma que para el Jugador
+Finalmente hay que añadirle el componente del script Zombi.cs y configurarlo.
+
+CONFIGURACIÓN DEL SCRIPT
+El script del Zombi tiene las siguientes variables de entrada:
+	Umbral Perseguimiento: Es la distancia máxima a partir de la cual el zombi persigue al jugador.
+	Balizas Size: Hay que escribir el número de balizas instaladas sobre el escenario
+	Element X: El element 0 será la baliza situada más al noroeste y se irá en orden primero por filas y después por columnas siendo la última la baliza situada más al sudeste del escenario.
+	Filas_Balizas: El número de filas de balizas que se han desplegado en el escenario.
+	Columnas_Balizas: El número de columnas de balzas que ser han desplegado en el escenario.
+	Distancia_maxima: Escribir el mismo valor que se asigna a los objetos Punto.
+
+FUNCIONAMIENTO DEL ZOMBI
+Inicialmente el Zombi irá hacia una baliza del escenario de forma aleatoria. En la primera elegirá de forma equiprobable una de las balizas adyacentes iterando de este modo hasta que se acerque por debajo del umbral determinado por la variable "Distancia_maxima" al  jugador. Cuando esto ocurra la elección anterior en la última baliza recorrida se verá reforzada un 20%. A lo largo de los distintos encontronazos con el jugador el zombi irá apendiendo las mejores elecciones en cada baliza.
+
+FUNCIONALIDAD DISTRACCIÓN:
+La funcionalidad de distracción aún no está implementada en espera de que se implementen los objetos distractores en el juego.
+
+PRUEBAS A HACER:
+Comprobar que si se lanza una exceptión Index Out of Bounds no se debe a que no hay ninguna baliza que permita escoger la siguiente fuera de los límites de la matriz de balizas del escenario.
+
+NOTA: En este archivo se suele usar indistintamente el término Punto y Baliza. Punto es el nombre del objeto en el juego así como el nombre del Script. El zombi interpreta como Balizas los puntos. De ahí la ambigüedaddel término.

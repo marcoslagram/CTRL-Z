@@ -10,9 +10,14 @@ public class Punto : MonoBehaviour {
 	float nextTime = 0;
     private Transform Player;
 
+    //Cada baliza dice las salidas que hay en la interseccion
+    public bool Norte = false;
+    public bool Sur = false;
+    public bool Este = false;
+    public bool Oeste = false;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		Player = GameObject.FindWithTag("Player").transform;
 	}
 	

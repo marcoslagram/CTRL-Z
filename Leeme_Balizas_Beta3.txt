@@ -1,0 +1,32 @@
+Balizas versión Beta 3
+
+Añadir el Script en Unity a balizas
+
+INSTALACIÓN BALIZAS:
+Una baliza en un Empty Object (GameObject -> Create Empty)
+Para distribuir las balizas en el escenario es necesario poner M x N balizas en forma de matriz, es MUY IMPORTANTE poner las balizas en las intersecciones de las calles del escenario.
+Todas sobre el suelo (Altura Y = 0)
+Asignar el Script Punto.cs a todas y cada una de las balizas de la malla.
+Las balizas se situarán de norte a sur y de oeste a este, siendo la primera fila de la matriz de balizas la situada al norte del escenario y la primera columna la situada al oeste del escenario.
+
+CONFIGURAR LAS BALIZAS:
+El script de las balizas tiene los siguientes parámetros de entrada:
+	Valor probabilidad, se inicializa por defecto a 1 a no ser que se necesite dar un mayor valor de entrada (las probabilidades de este valor no están normalizados, por lo que se pueden asignar valores >1)
+	Distancia_maxima, este valor el IMPORTANTE que sea el valor de la distancia máxima entre dos puntos cualquiera del escenario, como mínimo 1,4 veces el lado máximo del escenario. Es imprescindible nombrar en Tag del objeto jugador como "Player", en caso contrario hay que modificar es script cambiando la línea
+Player = GameObject.FindWithTag("Player").transform;
+Cambiando "Player" por el nombre que haya en el Tag del jugador (con comillas)
+	Marcar la casilla de selección Norte en caso de que la intersección donde se sitúe la baliza tenga una salida (con su correspondiente fila de balizas hacia ese lado.
+	Igualmente marcar las siguientes casillas de forma análoga a la anterior.
+
+FUNCIONAMIENTO DE LAS BALIZAS
+Las balizas efectúan cada segundo una medición de la distancia al jugador en relación con el tamaño del escenario.
+Cada una irá aumentando el valor de probabiliad de forma inversamente proporcional a la distancia a la que se sitúe
+el jugador.
+El valor de probabilidad se puede ver en tiempo real en las propiedades de cada baliza
+Asimismo las balizas indican al Zombi las posibles salidas de cada intersección en la que se sitúe
+
+Pruebas a hacer:
+-Situar al personaje jugable en el punto exacto donde se sitúan las balizas.
+-Comprobar que no se decrementa el valor probabilidad cuando el jugador se sitúe en los puntos diametralmente opuestos
+	a la baliza -> En ese caso es necesario aumentar el valor de la variable de entrada Distancia_maxima
+-Comprobar que cada una de las balizas no permite tomar una salida que no exista al Zombi.
