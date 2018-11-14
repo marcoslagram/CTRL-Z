@@ -21,7 +21,7 @@ public class Zombi : MonoBehaviour {
     public int filas_Balizas = 0;   //Variables necesarias para tener en memoria una matriz en lugar de un array
     public int columnas_Balizas = 0;//de Balizas, para mas sencilla implementacion
     private GameObject[][] matriz_Balizas = null;
-
+    private bool repetido = false;
 
     // Variables para distraccion (AUN NO IMPLEMENTADO)
     private float probabilidadDistraccion = 1.0f; //Ira disminuyendo a medida que distraigas con el objeto
@@ -152,6 +152,7 @@ public class Zombi : MonoBehaviour {
         //print("GotoNextPoint");
         //print("Valor destPoint_columna: " + destPoint_columna);
         //print("Valor destPoint_fila: " + destPoint_fila);
+        print("NUEVA Baliza[" + destPoint_fila + "][" + destPoint_columna + "] Norte: " + decisiones_Baliza[destPoint_fila, destPoint_columna, 0] + " Sur:" + decisiones_Baliza[destPoint_fila, destPoint_columna, 1] + " Este:" + decisiones_Baliza[destPoint_fila, destPoint_columna, 2] + " Oeste: " + decisiones_Baliza[destPoint_fila, destPoint_columna, 3]);
         agent.destination = matriz_Balizas[destPoint_fila][destPoint_columna].transform.position;
 
         agent.SetDestination(agent.destination);
@@ -164,11 +165,19 @@ public class Zombi : MonoBehaviour {
     void PersigueJugador()
     {
         //Si es la primera iteraccion, al no haber elecion anterior no hace nada
-        if (destPoint_fila_anterior != -1)
+        //print("DestPointFila" + destPoint_fila);
+        //print("DestPoitnFilaANTERIOR: " + destPoint_fila_anterior);
+        //print("DestPointCol: " + destPoint_columna);
+        //print("DestPoitnColANTEROIR: " + destPoint_columna_anterior);
+        //if ((destPoint_fila_anterior != -1) && (destPoint_fila != destPoint_fila_anterior) || (destPoint_columna != destPoint_columna_anterior))
+        if((destPoint_fila_anterior != -1) && !repetido)
         {
             //Si puede perseguir al jugador beneficia la eleccion anterior
-            decisiones_Baliza[destPoint_fila_anterior, destPoint_columna_anterior, eleccion_anterior] = (decisiones_Baliza[destPoint_fila_anterior, destPoint_columna_anterior, eleccion_anterior] * 1.2f);
+            print("Actualiza las probabilidades");
+            decisiones_Baliza[destPoint_fila_anterior, destPoint_columna_anterior, eleccion_anterior] = (decisiones_Baliza[destPoint_fila_anterior, destPoint_columna_anterior, eleccion_anterior] * 1.20f);
+            print("Nuevas probabilidades" + decisiones_Baliza[destPoint_fila_anterior, destPoint_columna_anterior, eleccion_anterior]);
         }
+        repetido = true;
         
        
         //Las actuales pasan a ser las anteriores
@@ -273,6 +282,7 @@ public class Zombi : MonoBehaviour {
         {
             // Choose the next destination point when the agent gets
             // close to the current one.
+            repetido = false;
             if (agent.remainingDistance < 0.5f)
                 GotoNextPoint();
         }
