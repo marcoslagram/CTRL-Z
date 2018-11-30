@@ -286,6 +286,7 @@ public class MotorDialogo : MonoBehaviour
                         //Si se pulsa V o ya se pulso anteriormente entre en la contestacion afirmativa
                         if ((verdadPuls || pulsado) && impreso==false)//Boton
                         {
+                        dialogo.transform.GetChild(2).gameObject.SetActive(true);//siguiente
                         dialogo.transform.GetChild(3).gameObject.SetActive(false);//opcion 1
                         dialogo.transform.GetChild(4).gameObject.SetActive(false);//opcion 2
 
@@ -326,6 +327,7 @@ public class MotorDialogo : MonoBehaviour
                         //Si se pulsa F o ya se pulso anteriormente entre en la contestacion negativa
                         else if (falsoPuls || pulsado)
                         {
+                        dialogo.transform.GetChild(2).gameObject.SetActive(true);//siguiente
                         dialogo.transform.GetChild(3).gameObject.SetActive(false);//opcion 1
                         dialogo.transform.GetChild(4).gameObject.SetActive(false);//opcion 2
 
@@ -401,8 +403,10 @@ public class MotorDialogo : MonoBehaviour
 
                         if (w == oraciones.Length - 3)
                         {
+                            dialogo.transform.GetChild(2).gameObject.SetActive(false);//siguiente
                             dialogo.transform.GetChild(3).gameObject.SetActive(true);//opcion 1
                             dialogo.transform.GetChild(4).gameObject.SetActive(true);//opcion 2
+
                         }
                         botonPuls = false;
                         StartCoroutine(SaleConversacion(oraciones[w]));
@@ -431,6 +435,10 @@ public class MotorDialogo : MonoBehaviour
 
             else
             {
+                /*f(oracionSale.Contains("Sabela") || oracionSale.Contains("Gato Mistico"))
+                {
+
+                }*/
                 debugg.DebuggingDialogos(oracionSale);
             }
             

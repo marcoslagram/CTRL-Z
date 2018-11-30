@@ -11,6 +11,7 @@ public class Tiempo : MonoBehaviour {
     private Scene scene;
     private Inventory invetarioDia;
     private GameObject[] enemigos;
+    private GameObject jugador;
     private bool acaboPartida = false;
     private Economia salud;
     public Image saludH;
@@ -19,6 +20,7 @@ public class Tiempo : MonoBehaviour {
     DebugText debugg;
 	// Use this for initialization
 	void Start () {
+        jugador = GameObject.Find("Cube");
         enemigos = GameObject.FindGameObjectsWithTag("Zombie");
         tiempo = 300f;
         debugg = GameObject.Find("DebugText").GetComponent<DebugText>();
@@ -36,6 +38,7 @@ invetarioDia = GameObject.Find("Inventory").GetComponent<Inventory>();
         tiempoH.fillAmount = tiempo / 300f;
         //tiempo = SaberTiempo(tiempo);
         tiempo = tiempo - 1 * Time.deltaTime;
+       // Debug.Log(tiempo);
        // DialogoNPC.dia++;
         if (tiempo <= 0f)
         {
@@ -50,21 +53,26 @@ invetarioDia = GameObject.Find("Inventory").GetComponent<Inventory>();
 
         }
     
-    /*    else if (Input.GetKeyDown(KeyCode.B))
+        else if (Input.GetKeyDown(KeyCode.B))
         {
-            GestionDias.dia++;
+           GestionDias.dia++;
             Inventory.inventarioEstatico = invetarioDia.myInventory;
-            //  Application.LoadLevel(Application.loadedLevel);
+          //  Application.LoadLevel(Application.loadedLevel);
             SceneManager.LoadScene(scene.name);
-        }*/
+        }
 
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
-            
-            
-                Application.Quit();
-            
 
+            SceneManager.LoadScene("Menu"); 
+            //  Application.Quit();
+
+
+        }
+
+        else if (!jugador.activeInHierarchy)
+        {
+            SceneManager.LoadScene("Menu");
         }
 
         acaboPartida = true;
@@ -83,7 +91,8 @@ invetarioDia = GameObject.Find("Inventory").GetComponent<Inventory>();
 
         if (acaboPartida)
         {
-            Application.Quit();
+            SceneManager.LoadScene("Menu");
+            //   Application.Quit();
         }
 
 

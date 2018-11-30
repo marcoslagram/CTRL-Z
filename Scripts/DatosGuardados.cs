@@ -5,6 +5,7 @@ using UnityEngine;
 public class DatosGuardados : MonoBehaviour {
     public GameObject player;
     public GameObject zombie;
+    public GameObject camara;
     #region Singletons
     // Singleton
     public static DatosGuardados g_GameDataInstance;
@@ -35,7 +36,7 @@ public class DatosGuardados : MonoBehaviour {
 
     void Start()
     {
-
+        
         zombies = GameObject.FindGameObjectsWithTag("Zombie");
         savedGameData.positionz = new Vector3[zombies.Length];
         savedGameData.rotacionz = new Quaternion[zombies.Length];
@@ -43,9 +44,14 @@ public class DatosGuardados : MonoBehaviour {
         savedGameData.salud = 100;
         savedGameData.energia = 100;
         savedGameData.usos = 4;
-        savedGameData.myItems = new List<Items>();
+      //  savedGameData.sigue = false;
+        //savedGameData.myItems = new List<Items>();
         savedGameData.positionj = player.transform.position;
-            savedGameData.rotacionj = player.transform.rotation;
+        savedGameData.rotacionj = player.transform.rotation;
+        savedGameData.positionc = camara.transform.position;
+        savedGameData.rotacionc = camara.transform.rotation;
+      //  savedGameData.objetosActivos = GameObject.FindGameObjectsWithTag("Objectos");
+   //     savedGameData.zombiesActivos= GameObject.FindGameObjectsWithTag("Zombie");
         for (int i = 0; i < zombies.Length; i++)
         {
             savedGameData.positionz[i] = zombies[i].transform.position;

@@ -334,6 +334,11 @@ public class Inventory : Interactable {
     {
         return usos;
     }
+
+    public List<Items> SaberItems(List<Items> myInventory)
+    {
+        return myInventory;
+    }
 }
 
 

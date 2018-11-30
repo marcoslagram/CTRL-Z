@@ -55,6 +55,8 @@ public class GestionDias : MonoBehaviour {
             }
 
             inventarioDia.myInventory = Inventory.inventarioEstatico;
+
+            DialogoNPC.conversacionGatoTerminada = false;
         }
 
         if (dia == 3)
@@ -86,6 +88,8 @@ public class GestionDias : MonoBehaviour {
             }
 
             inventarioDia.myInventory = Inventory.inventarioEstatico;
+
+            DialogoNPC.conversacionGatoTerminada = false;
         }
 
         if (dia == 4)
@@ -95,9 +99,9 @@ public class GestionDias : MonoBehaviour {
             GameObject.Find("Palo").SetActive(false);
             GameObject.Find("Hacha").SetActive(false);
 
-            GameObject.Find("LataConserva").transform.position = new Vector3(-58.8f, 0.5f, 67.4f);
+            GameObject.Find("LataConserva").transform.position = new Vector3(-51.9f, 0.5f, 51f);
             GameObject.Find("Tarta").transform.position = new Vector3(120.5f, 0.894f, 25.4f);
-            GameObject.Find("PiedraEspecial").transform.position = new Vector3(-81.1f, 0.894f, -23.8f);
+            GameObject.Find("PiedraEspecial").transform.position = new Vector3(121.4f, 0.5f, -117.5f);
 
             if (respuesta)
             {
@@ -119,6 +123,8 @@ public class GestionDias : MonoBehaviour {
 
             inventarioDia.myInventory = Inventory.inventarioEstatico;
 
+            DialogoNPC.conversacionGatoTerminada = false;
+
         }
         
         
@@ -130,9 +136,9 @@ public class GestionDias : MonoBehaviour {
             GameObject.Find("Clavos").SetActive(false);
             
 
-            GameObject.Find("LataConserva").transform.position = new Vector3(133.3f, 0.894f, -85.2f);
-            GameObject.Find("Tarta").transform.position = new Vector3(-73.8f, 0.894f, -89.6f);
-            GameObject.Find("PiedraEspecial").transform.position = new Vector3(103.5f, 0.5f, 157.7f);
+            GameObject.Find("LataConserva").transform.position = new Vector3(63.6f, 0.894f, -130.2f);
+            GameObject.Find("Tarta").transform.position = new Vector3(-50f, 0.5f, 126.2f);
+            GameObject.Find("PiedraEspecial").transform.position = new Vector3(103f, 0.5f, 120.4f);
 
             if (respuesta)
             {

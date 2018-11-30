@@ -10,7 +10,10 @@ public class DebugText : MonoBehaviour
     public Text energia;
     public Text usos;
     public Text dialogos;
+    public Text nombre;
     public Text tutorial;
+  //  GUIStyle style = new GUIStyle();
+   
 
 
     //Para llamarlo poner debugg.DebbuggingText(lo que quieras sacar);
@@ -51,6 +54,20 @@ public class DebugText : MonoBehaviour
 
     public void DebuggingDialogos(string text)
     {
+        if (text.Contains("Sabela"))
+        {
+            nombre.text = "Sabela";
+            nombre.color = Color.red;
+          
+            
+        }
+        else if (text.Contains("Gato Místico"))
+        {
+            nombre.text = "Gato Místico";
+            nombre.color = Color.red;
+        }
+
+
         dialogos.text = text;
         //Debug.Log(text);
     }

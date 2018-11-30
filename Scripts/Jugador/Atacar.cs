@@ -88,7 +88,7 @@ public class Atacar : Interactable
                     saludEnemigo = saludEnemigo - 25;
                     if (saludEnemigo == 0)
                     {
-
+                       // Destroy(enemy[i]);
                         enemy[i].SetActive(false);
                         saludEnemigo = 100;
                     }

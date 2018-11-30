@@ -29,7 +29,7 @@ public class Saltar : MovimientoJugador {
 	void Update () {
         if (Input.GetKey(KeyCode.Space) && tocaSuelo == true)
         {
-            myRigidBody.velocity = new Vector3(0, 5, 0);
+            myRigidBody.velocity = new Vector3(0, 4.5f, 0);
             tocaSuelo = false; //porque si saltas ya no estas tocando el suelo
         }
 

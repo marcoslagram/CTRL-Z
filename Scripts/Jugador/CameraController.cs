@@ -17,13 +17,20 @@ public class CameraController : MonoBehaviour
     public float velocidadRotacion = 5.0f;
 
     public float zoom;
-
+    public float distancia = 4f;
+    public float distanciaMaxima = 6f;
+    public float distanciaMinima = 0.5f;
     public float mindistancia = 0.5f;
-    public float distancia=1f;
+    //public float distancia=1f;
     public float distan;
+    public float velocidadVertical = 4f;
+    public float altura;
+    public float probar;
     private Vector3 camDir;
 
     private Vector3 camDirPlus;
+    Vector3 destino;
+    RaycastHit hit;
 
     //public float velocidadRotacion1 = 40.0f;
 
@@ -79,9 +86,9 @@ public class CameraController : MonoBehaviour
             myCamara.y = 0.5f;
         }
 
-       else if (myCamara.y > 5f)
+       else if (myCamara.y > 3f)
         {
-            myCamara.y = 5f;
+            myCamara.y = 3f;
         }
 
 
@@ -89,19 +96,46 @@ public class CameraController : MonoBehaviour
         if (Input.GetButton("MousePulsadoDer"))
             {
             // para que se mueva la cámara
-            myCamara = giroCamara * altoCamara * myCamara;
+            myCamara = giroCamara * myCamara;//* altoCamara 
             //Para que rote el jugador en el eje Y lo mismo que rota la cámara
             myPlayer.transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-        
+
+            altura += Input.GetAxis("Mouse Y") * Time.deltaTime * -velocidadVertical;
         }
         //Para que se coloque en sitio correspondiente
         Vector3 nuevaPosicionCamara = myPlayer.transform.position + myCamara;
 
-        transform.position = Vector3.Slerp(transform.position, nuevaPosicionCamara, smothFactor);
-      
+        ;
+
+
+
+
+        destino = myPlayer.transform.position + myPlayer.transform.forward * -1 * distancia + Vector3.up * altura;
+        if (Physics.Linecast(myPlayer.transform.position, destino, out hit))
+        {
+            distancia = Mathf.Clamp(hit.distance, distanciaMinima, distanciaMaxima);
+            //this.transform.position = hit.point+hit.normal*0.14f;
+        }
+        else
+        {
+            distancia = 4f;
+        }
+
+        transform.position = Vector3.Lerp(transform.position, destino, Time.deltaTime * 10);
         //Para que siga al jugador
-        transform.LookAt(myPlayer.transform.position);
-     
+        transform.LookAt(myPlayer.transform.position + new Vector3(0f,probar,0f));
+
+        /*RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit))
+        {
+            //Debug.Log(hit.collider.gameObject.name);
+            if (hit.collider.gameObject.name != "Cube")
+            {
+                hit.collider.gameObject.SetActive(false);
+            }
+            
+        }*/
+
     }
 
     public void AumentarZoom()

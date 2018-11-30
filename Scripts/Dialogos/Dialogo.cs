@@ -3,27 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[System.Serializable]
-public class Dialogo {
 
-    public string nombreNPC;
+public class Dialogo: MonoBehaviour
+{
 
-   /* [TextArea(1, 20)]
-    public string[] oracionConver;*/
-    public Queue<string> colaConversaciones;
+    private DialogoNPC conversaciones;
 
-    public Dialogo(string name)
+    void Start()
     {
-        nombreNPC = name;
-    }
+        conversaciones = GameObject.Find("Gato").GetComponent<DialogoNPC>();
+        //Aqui meter las conversaciones
 
-    public Dialogo(string name, Queue<string> colaOraciones)
-    {
-        nombreNPC= name;
-        colaConversaciones = colaOraciones;
+
 
     }
 
+    
 
 }
 

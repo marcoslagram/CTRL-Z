@@ -84,11 +84,11 @@ public class DialogoNPC : Interactable {
     private Tiempo tiempoDia;
     private Inventory invetarioDia;
     private MovimientoJugador movePlayer;
-    private CameraController moveCamara;
+    private CamaraCont moveCamara;
     private Saltar salto;
     private Control miControl;
     private ColliderObjetos interLata;
-
+    private MotorSonido sonido;
     // private GestionDias dia;
 
     public GameObject dialogo;
@@ -119,9 +119,10 @@ public class DialogoNPC : Interactable {
             tiempoDia = GameObject.Find("Player").GetComponent<Tiempo>();
        
         miControl = GameObject.Find("Player").GetComponent<Control>();
+        sonido = GameObject.Find("Cube").GetComponent<MotorSonido>();
         invetarioDia = GameObject.Find("Inventory").GetComponent<Inventory>();
         movePlayer = GameObject.Find("Cube").GetComponent<MovimientoJugador>();
-        moveCamara = GameObject.Find("Camera").GetComponent<CameraController>();
+        moveCamara = GameObject.Find("Camera").GetComponent<CamaraCont>();
         salto = GameObject.Find("Cube").GetComponent<Saltar>();
         //Se encuentra el objecto
         motorDialogo = GameObject.Find("MotorDialogo").GetComponent<MotorDialogo>();
@@ -156,10 +157,10 @@ public class DialogoNPC : Interactable {
         // tiempoDia.enabled = true;
         // dia++;
         // Debug.Log(empiezaJuego);
-           if (GestionDias.dia == 1 && tiempoDia.tiempo==300f && !sigueJuego)
+           if (GestionDias.dia == 1 && tiempoDia.tiempo >= 299.5f && tiempoDia.tiempo<=300f && !sigueJuego)
            {
                empiezaJuego = true;
-
+           
                //Desabilitamos scripts
                tiempoDia.enabled = false;
                miControl.enabled = false;
@@ -167,6 +168,7 @@ public class DialogoNPC : Interactable {
                movePlayer.enabled = false;
                moveCamara.enabled = false;
                salto.enabled = false;
+               sonido.enabled = false;
          
              for (int i = 0; i < zombies.Length; i++)
              {
@@ -200,6 +202,7 @@ public class DialogoNPC : Interactable {
                    movePlayer.enabled = true;
                    moveCamara.enabled = true;
                    salto.enabled = true;
+                   sonido.enabled = true;
 
                 for (int i = 0; i < zombies.Length; i++)
                 {

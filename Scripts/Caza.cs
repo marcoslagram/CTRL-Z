@@ -84,7 +84,14 @@ public class Caza : MonoBehaviour {
     }
 
 
-
+   /*void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.transform.name == "Cube")
+        {
+            Debug.Log("AAAAAAAAAAAA111111111");
+        }
+            
+    }*/
 
     //Funcion para que le haga daño, sino solo lo perseguiria
     void OnCollisionEnter(Collision collision)
@@ -92,7 +99,8 @@ public class Caza : MonoBehaviour {
 
         if (collision.gameObject.transform.name == "Cube")
         {
-            salud.salud = salud.salud - 5;
+            Debug.Log("AAAAAAAAAAAA111111111");
+            salud.salud = salud.salud - 10;
             //Debug.Log("1");
         }
         //Debug.Log("aaaa");

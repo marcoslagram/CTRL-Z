@@ -10,52 +10,88 @@ public class MotorSonido : MonoBehaviour
 
     AudioSource fuenteAudio;
 
-    MovimientoJugador andar;
-    MovimientoJugador correr;
-    Saltar salto;
+    //bool enSuelo;
+
+    //public float Volumen = 1.0f;
+    //public Transform Posicion = null;
+
+    //MovimientoJugador andar;
+    //MovimientoJugador correr;
+    //Saltar salto;
+
 
     // Use this for initialization
     void Start()
     {
-
+        //Posicion = transform;
         fuenteAudio = GetComponent<AudioSource>();
 
-        MovimientoJugador andar = GetComponent<MovimientoJugador>();
+        //MovimientoJugador andar = GetComponent<MovimientoJugador>();
         //MovimientoJugador correr = GetComponent<MovimientoJugador>();
-        Saltar salto = GetComponent<Saltar>();
+        //Saltar salto = GetComponent<Saltar>();
 
     }
+
+    /* void OnCollisionEnter(Collision collision)
+     {
+         if (sonidoAterrizar) AudioSource.PlayClipAtPoint(sonidoAterrizar, Posicion.position, Volumen);
+     }*/
+
 
     // Update is called once per frame
     void Update()
 
     //podria entrar en los ifs tambien cuando se activen las animaciones
     {
-        //if ((Input.GetKey(KeyCode.UpArrow)) || (Input.GetKey(KeyCode.DownArrow)) || (Input.GetKey(KeyCode.LeftArrow)) || (Input.GetKey(KeyCode.RightArrow)))//prueba con 0, aqui deberia ser if(se esta desplazando) -> ...
-        //if(andar.GetComponent<MovimientoJugador>().DesplazamientoNormal())
-        if(Input.GetAxis("Horizontal")!=0 || Input.GetAxis("Vertical")!=0 )
+
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)  //FUNCIONA
         {
-            fuenteAudio.clip = sonidoAndar;
-            fuenteAudio.Play();
+            if ((!fuenteAudio.isPlaying) && (fuenteAudio.clip != sonidoAndar))
+            {
+                fuenteAudio.clip = sonidoAndar;
+                fuenteAudio.Play();
+
+            }
         }
-        else
+        else if ((fuenteAudio.isPlaying) && (fuenteAudio.clip == sonidoAndar))
         {
             fuenteAudio.Stop();
+            fuenteAudio.clip = null;
         }
-        //if(salto.tocaSuelo == true)
 
-        //if (Input.GetKey(KeyCode.Alpha1)) //prueba con 1, aqui deberia ser if(tocaSuelo==true) de la clase saltar -> ...
-        if (gameObject.CompareTag("Terrain"))
+        //SALTO
+        if (Input.GetKeyUp(KeyCode.Space))
         {
+            //if ((!fuenteAudio.isPlaying) && (fuenteAudio.clip != sonidoAterrizar))
+            //{
             fuenteAudio.clip = sonidoAterrizar;
             fuenteAudio.Play();
+            //}
         }
+        /*if((fuenteAudio.isPlaying) && (fuenteAudio.clip == sonidoAterrizar))
+            {
+                fuenteAudio.Stop();
+                fuenteAudio.clip = null;
+          
+            }*/
+        //ARREGLADO
 
-        if ((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) && Input.GetButton("Correr")) //prueba con 2, aqui deberia ser if(corre) -> ...
+
+
+        //Correr
+        if (Input.GetButton("Correr")) //FUNCIONA
         {
-            Debug.Log("111");
-            fuenteAudio.clip = sonidoCorrer;
-            fuenteAudio.Play();
+            if ((!fuenteAudio.isPlaying) && (fuenteAudio.clip != sonidoCorrer))
+            {
+                Debug.Log("111");
+                fuenteAudio.clip = sonidoCorrer;
+                fuenteAudio.Play();
+            }
+        }
+        else if ((fuenteAudio.isPlaying) && (fuenteAudio.clip == sonidoCorrer))
+        {
+            fuenteAudio.Stop();
+            fuenteAudio.clip = null;
         }
     }
 

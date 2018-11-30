@@ -5,8 +5,8 @@ using UnityEngine;
 public class MovimientoJugador : MonoBehaviour {
 
 
-   [SerializeField] private float velocidad = 2;
-   [SerializeField] private float velocidadCarrera = 7;
+   public float velocidad = 2f;
+   public float velocidadCarrera = 2.5f;
     private Vector3 teclas = new Vector3(0, 0, 0);
     private Vector3 movimiento = new Vector3(0, 0, 0);
     //[SerializeField] private float velocidadGiro = 60; 

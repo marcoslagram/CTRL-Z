@@ -11,6 +11,8 @@ public class SaveDatos{
     public int usos;
     public float tiempo;
 
+  //  public bool sigue;
+
     public List<Items> myItems;
 
     public Vector3 positionj;
@@ -19,7 +21,13 @@ public class SaveDatos{
     public Vector3[] positionz;
     public Quaternion[] rotacionz;
 
-    
+    public Vector3 positionc;
+    public Quaternion rotacionc;
+
+    public GameObject[] objetosActivos;
+    public GameObject[] zombiesActivos;
+
+
 
 
 
