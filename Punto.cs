@@ -18,7 +18,7 @@ public class Punto : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		Player = GameObject.FindWithTag("Player").transform;
+		Player = GameObject.FindWithTag("Jugador").transform;
 	}
 	
 	// Update is called once per frame
