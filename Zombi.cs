@@ -1,6 +1,6 @@
 ﻿/*
  * ####################################################################################################
- * Zombi.cs Beta 4.1
+ * Zombi.cs Beta 4.2
  * Diciembre 2018
  * Grupo .EXE
  * Marcos Lago Ramilo
@@ -33,6 +33,7 @@ public class Zombi : MonoBehaviour {
     private GameObject[,] matriz_Balizas = null;
     private bool repetido = false;
     private bool repetido2 = false;
+    private bool meDistraje = false;
 
     // Variables para distraccion
     private float probabilidadDistraccion = 1.0f; //Ira disminuyendo a medida que distraigas con el objeto
@@ -217,14 +218,15 @@ public class Zombi : MonoBehaviour {
                     //Vario la probabilidad de ir al objeto distractor teniendo en cuenta esa distancia
                     float decrementoProbDistraccion = 0.75f * (distanciaJugador / distancia_maxima);
                     probabilidadDistraccion -= decrementoProbDistraccion;
-                    
+                    meDistraje = false;
                     //Desactivo el objeto distractor
                     Distractores[i].GetComponent<Distractor>().distrae = false;
+                    
                 }
                 break;
             }
         }
-
+        
         estaDistraido = false;
       
     }
@@ -309,14 +311,17 @@ public class Zombi : MonoBehaviour {
         //Si distraen al zombi va hacia el objeto distractor
         if (estaDistraido)
         {
+            meDistraje = true;
             if (!repetido2)
             {
                 meDistraigo = Random.Range(0.0f, 1.0f);
+                
             }
                 
             //print("Me distraigo:" + meDistraigo + "Prob Distraccion: " + probabilidadDistraccion);
             if ((meDistraigo < probabilidadDistraccion) || !ActivarIA )
             {
+                
                 distraccion();
                 repetido2 = true;
             } else
@@ -325,6 +330,7 @@ public class Zombi : MonoBehaviour {
                 {
                     Distractores[i].GetComponent<Distractor>().distrae = false;
                 }
+                //meDistraje = false;
                 estaDistraido = false;
             }
 
@@ -332,9 +338,8 @@ public class Zombi : MonoBehaviour {
         }
 
         //Si estoy cerca del jugador voy a por el
-        if (distanciaJugador < umbralPerseguimiento)
+        if ((distanciaJugador < umbralPerseguimiento) && (!meDistraje))
         {
-            
             PersigueJugador();
         }
         else
@@ -342,6 +347,7 @@ public class Zombi : MonoBehaviour {
             // Choose the next destination point when the agent gets
             // close to the current one.
             repetido = false;
+            meDistraje = false;
             if (agent.remainingDistance < 0.5f) { 
                 GotoNextPoint();
             }
@@ -351,11 +357,11 @@ public class Zombi : MonoBehaviour {
     private bool Waited(float seconds)
     {
         timerMax = seconds;
-
         timer += Time.deltaTime;
 
         if (timer >= timerMax)
         {
+            timer = 0;
             return true; //max reached - waited x - seconds
         }
 
