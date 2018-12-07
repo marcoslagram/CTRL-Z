@@ -7,9 +7,19 @@ public class Inventory : Interactable {
 
     public  List<Items> myInventory = new List<Items>();
 
+    public GameObject invenarioCanvas;
 
     public Image energiaH;
     public Text usosH;
+
+    public GameObject radio;
+    public GameObject jugador;
+
+    public Transform consumibles;
+    public Transform armas;
+
+   public Image[] slotsConsumibles;
+  public  Image[] slotsArmas;
 
     public static List<Items> inventarioEstatico = new List<Items>();
     private DebugText debugg;
@@ -30,6 +40,8 @@ public class Inventory : Interactable {
     // private bool interacciono=false;
     int x;
     public int usosControl;
+
+    private bool abierto = false;
     // Use this for initialization
     void Start () {
         myBase = GameObject.FindGameObjectWithTag("ItemsBase").GetComponent<ItemsBase>();
@@ -39,7 +51,11 @@ public class Inventory : Interactable {
         //  debugg = GameObject.Find("DebugText");
         debugg = GameObject.Find("DebugText").GetComponent<DebugText>();
         energia = 100;
-       // usosControl = 2;
+        // usosControl = 2;
+        
+
+        slotsConsumibles = consumibles.GetComponentsInChildren<Image>();
+        slotsArmas = armas.GetComponentsInChildren<Image>();
     }
 
      void Update()
@@ -48,6 +64,7 @@ public class Inventory : Interactable {
           {
               pulsado = !pulsado;
           }*/
+        
         // energia = SaberEnergia(energia);
         energiaH.fillAmount = energia / 100f;
         //debugg.DebuggingEnergia("La energia es: " + energia.ToString());
@@ -62,7 +79,9 @@ public class Inventory : Interactable {
                   usosControl = 0;
               }
           }*/
-
+      //  Debug.Log(jugador.transform.forward);
+        AsignarSpriteCorrespondiente();
+        ActualizarCanvasInventario();
         // usosControl = SaberUsos(usosControl);
         usosH.text = "CTRL+Z: " + usosControl.ToString();
        // debugg.DebuggingUsos("Los usos de CTRL+Z: " + usosControl.ToString());
@@ -72,15 +91,15 @@ public class Inventory : Interactable {
         //Si hay algun item repetido le incremento la cantidad 
         
         ItemsInventarioRepetidos();
-    
-
+     
         //Abrir inventario
         if (Input.GetKeyDown(KeyCode.I))
         {
-            debugg.DebuggingText("Inventario abierto");
-
+            // debugg.DebuggingText("Inventario abierto");
+            invenarioCanvas.SetActive(!invenarioCanvas.activeInHierarchy);
+            //abierto = !abierto;
        
-            if (myInventory.Count == 0 )
+         /*   if (myInventory.Count == 0 )
             {
                 debugg.DebuggingText("No hay ningun objeto en el inventario");
                 
@@ -93,9 +112,9 @@ public class Inventory : Interactable {
                     debugg.DebuggingText(inventario + myInventory[i].itemName.ToString() + "  Cantidad: " + myInventory[i].cantidad.ToString());
                     
                     inventario = inventario + myInventory[i].itemName.ToString() + "  Cantidad: " + myInventory[i].cantidad.ToString() + "\n";
-                }
-                UsarItemsInventario();
-            }
+                }}*/
+               
+      //  UsarItemsInventario();     
         }
         
 
@@ -128,7 +147,7 @@ public class Inventory : Interactable {
     }
 
 
-    private void UsarItemsInventario()
+  /*  private void UsarItemsInventario()
     {
         //debugg.DebuggingEnergia("La energia es " + energia.ToString());
         for (int i = 0; i < myInventory.Count; i++)
@@ -181,9 +200,106 @@ public class Inventory : Interactable {
 
             }
         }
+    }*/
+
+   
+
+    public void PulsarPiedra()
+    {
+        for (int i = 0; i < myInventory.Count; i++)
+        {
+            if(myInventory[i].cantidad>=1 && myInventory[i].id == 2)
+            {
+
+                if (myInventory[i].cantidad == 1)
+                {
+                    
+                    slotsConsumibles[1].sprite = null;
+                    slotsConsumibles[1].transform.GetChild(0).GetComponent<Text>().text = null;
+                    slotsConsumibles[1].transform.GetChild(2).GetComponent<Text>().text = null;
+                    myInventory.Remove(myInventory[i]);
+                    // AsignarSpriteCorrespondiente();
+                }
+
+                else
+                {
+                    myInventory[i].cantidad--;
+                }
+
+                miEconomia.salud = 100;
+                
+            }
+            
+        }
+
+
     }
 
 
+    public void PulsarTarta()
+    {
+        for (int i = 0; i < myInventory.Count; i++)
+        {
+            if (myInventory[i].cantidad >= 1 && myInventory[i].id == 3)
+            {
+
+                if (myInventory[i].cantidad == 1)
+                {
+
+                    slotsConsumibles[3].sprite = null;
+                    slotsConsumibles[3].transform.GetChild(0).GetComponent<Text>().text = null;
+                    slotsConsumibles[3].transform.GetChild(2).GetComponent<Text>().text = null;
+                    myInventory.Remove(myInventory[i]);
+                    // AsignarSpriteCorrespondiente();
+                }
+
+                else
+                {
+                    myInventory[i].cantidad--;
+                }
+
+               energia = 100;
+
+            }
+
+        }
+
+    }
+
+
+    public void PulsarRadio()
+    {
+        for (int i = 0; i < myInventory.Count; i++)
+        {
+            if (myInventory[i].cantidad >= 1 && myInventory[i].id == 7)
+            {
+
+                if (myInventory[i].cantidad == 1)
+                {
+
+                    slotsConsumibles[5].sprite = null;
+                    slotsConsumibles[5].transform.GetChild(0).GetComponent<Text>().text = null;
+                    slotsConsumibles[5].transform.GetChild(2).GetComponent<Text>().text = null;
+                    myInventory.Remove(myInventory[i]);
+                    
+                    // AsignarSpriteCorrespondiente();
+                }
+
+                else
+                {
+                    myInventory[i].cantidad--;
+                }
+
+                radio.transform.position = jugador.transform.position +jugador.transform.forward+jugador.transform.right;
+                radio.SetActive(true);
+               
+                
+
+            }
+
+        }
+
+    }
 
     private void AñadirItemsInventario()
     {
@@ -199,20 +315,7 @@ public class Inventory : Interactable {
             //Para despues agregarlo correctamente al inventario
             x=AsignarItemCorrespondiente(i);
             
-        /*    if (g[i].transform.name == "Palo")
-        {
-            x = 0;
-        }
-            if (g[i].transform.name == "LataConserva")
-            {
-                x = 1;
-            }
-            else
-        {
-             x = 2;
-        }*/
-
-          //  Debug.Log(i);
+       
             //Para que cuando desaparaezca el objecto no de fallo
             if (g[i] == null)
             {
@@ -251,6 +354,9 @@ public class Inventory : Interactable {
                 
                     //Se añade al inventario
                     myInventory.Add(myBase.myItems[x]);
+                   // AsignarSpriteCorrespondiente();
+                    
+
                    // g = GameObject.Find(myBase.myItems[i].itemName);
                     Interact(g[i]);
 
@@ -311,9 +417,107 @@ public class Inventory : Interactable {
         {
             x = 6;
         }
-       
+        else if (g[i].transform.name == "Radio")
+        {
+            x = 7;
+        }
+
         return x;
     }
+  /*  public void ComprobarCantidad()
+    {
+          else if (myInventory[i].id == 1)
+        {
+            slotsConsumibles[0].sprite = myInventory[i].itemSprite;
+            slotsConsumibles[0].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+        }
+        else if (myInventory[i].id == 2)
+        {
+            slotsConsumibles[1].sprite = myInventory[i].itemSprite;
+            slotsConsumibles[1].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+        }
+        else if (myInventory[i].id == 3)
+        {
+            slotsConsumibles[2].sprite = myInventory[i].itemSprite;
+            slotsConsumibles[2].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+        }
+    }*/
+    public void AsignarSpriteCorrespondiente()
+    {
+        for(int i = 0; i < myInventory.Count;i++)
+        {
+            if (myInventory[i].id == 0)
+            {
+                slotsArmas[0].sprite = myInventory[i].itemSprite;
+                
+            }
+           
+          else if (myInventory[i].id == 4)
+            {
+                slotsArmas[1].sprite = myInventory[i].itemSprite;
+            }
+          else  if (myInventory[i].id == 5)
+            {
+                slotsArmas[2].sprite = myInventory[i].itemSprite;
+            }
+            else if (myInventory[i].id == 6)
+            {
+                slotsArmas[3].sprite = myInventory[i].itemSprite;
+            }
+
+            else if (myInventory[i].id == 1)
+            {
+                slotsConsumibles[0].sprite = myInventory[i].itemSprite;
+                slotsConsumibles[0].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+                slotsConsumibles[0].transform.GetChild(2).GetComponent<Text>().text = myInventory[i].itemDescription;
+            }
+            else if (myInventory[i].id == 2)
+            {
+                slotsConsumibles[1].sprite = myInventory[i].itemSprite;
+                slotsConsumibles[1].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+                slotsConsumibles[1].transform.GetChild(2).GetComponent<Text>().text = myInventory[i].itemDescription;
+            }
+            else if (myInventory[i].id == 3)
+            {
+                slotsConsumibles[3].sprite = myInventory[i].itemSprite;
+                slotsConsumibles[3].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+                slotsConsumibles[3].transform.GetChild(2).GetComponent<Text>().text = myInventory[i].itemDescription;
+            }
+
+            else if (myInventory[i].id == 7)
+            {
+               
+                slotsConsumibles[5].sprite = myInventory[i].itemSprite;
+                slotsConsumibles[5].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+                slotsConsumibles[5].transform.GetChild(2).GetComponent<Text>().text = myInventory[i].itemDescription;
+            }
+
+
+        }
+
+       
+    }
+
+       public void ActualizarCanvasInventario()
+       {
+            for (int i = 0; i < myInventory.Count; i++)
+            {
+                if (myInventory[i].id == 7)
+                {
+                slotsConsumibles[5].sprite = myInventory[i].itemSprite;
+                slotsConsumibles[5].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+                
+
+                }
+
+                else
+                {
+                slotsConsumibles[5].sprite = null;
+                slotsConsumibles[5].transform.GetChild(0).GetComponent<Text>().text = null;
+                 }
+            }
+        
+       }
 
     /*  IEnumerator TiempoCouroutine()
       {

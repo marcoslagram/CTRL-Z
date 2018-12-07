@@ -105,7 +105,7 @@ public class DialogoNPC : Interactable {
     private float tiempo;
     //private float tiempoConverso;
 
-   
+    public static bool salieronDialog=false;
 
     /* public bool pulsad;
      public Interactable pulsar;*/
@@ -113,7 +113,7 @@ public class DialogoNPC : Interactable {
 
     // Use this for initialization
     void Start () {
-        zombies= GameObject.FindGameObjectsWithTag("Zombie");
+      //  zombies= GameObject.FindGameObjectsWithTag("Zombie");
         //  tiempo = 10f;
     
             tiempoDia = GameObject.Find("Player").GetComponent<Tiempo>();
@@ -152,12 +152,12 @@ public class DialogoNPC : Interactable {
 
      void Update()
     {
-        
 
+        zombies = GameObject.FindGameObjectsWithTag("Zombie");
         // tiempoDia.enabled = true;
         // dia++;
         // Debug.Log(empiezaJuego);
-           if (GestionDias.dia == 1 && tiempoDia.tiempo >= 299.5f && tiempoDia.tiempo<=300f && !sigueJuego)
+        if (GestionDias.dia == 1 && tiempoDia.tiempo >= 299.5f && tiempoDia.tiempo<=300f && !sigueJuego && !salieronDialog)
            {
                empiezaJuego = true;
            
@@ -172,10 +172,11 @@ public class DialogoNPC : Interactable {
          
              for (int i = 0; i < zombies.Length; i++)
              {
+               
                  zombies[i].GetComponent<NavMeshAgent>().enabled = false;
                  zombies[i].GetComponent<Zombi>().enabled = false;
             }
-
+            Debug.Log(zombies.Length);
             dialogo.SetActive(true);
                dialogo.transform.GetChild(3).gameObject.SetActive(false);//opcion 1
                dialogo.transform.GetChild(4).gameObject.SetActive(false);//opcion 2
@@ -192,7 +193,7 @@ public class DialogoNPC : Interactable {
             if (empiezaJuego)
            {
                empiezaJuego = false;
-
+              
             
                 if (motorDialogo.finalConversacion == true)
                 {
@@ -216,7 +217,7 @@ public class DialogoNPC : Interactable {
                    motorDialogo.i = 0;
                 motorDialogo.finalConversacion = false;
                 tiempo = 5f;
-                
+                 salieronDialog = true;
                
                 }
             

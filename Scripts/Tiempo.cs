@@ -16,7 +16,7 @@ public class Tiempo : MonoBehaviour {
     private Economia salud;
     public Image saludH;
     public Image tiempoH;
-
+    public static float tiempoSobra;
     DebugText debugg;
 	// Use this for initialization
 	void Start () {
@@ -38,6 +38,7 @@ invetarioDia = GameObject.Find("Inventory").GetComponent<Inventory>();
         tiempoH.fillAmount = tiempo / 300f;
         //tiempo = SaberTiempo(tiempo);
         tiempo = tiempo - 1 * Time.deltaTime;
+        tiempoSobra = tiempo;
        // Debug.Log(tiempo);
        // DialogoNPC.dia++;
         if (tiempo <= 0f)

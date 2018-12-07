@@ -1,11 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DatosGuardados : MonoBehaviour {
     public GameObject player;
     public GameObject zombie;
     public GameObject camara;
+    public Transform consumibles;
+    public Transform armas;
+
+
+    [SerializeField] public Vector3[] zombiesSeri;
+    [SerializeField] public Quaternion[] zombiesRotaSeri;
+    public Inventory lista;
+
+    //Image[] slotsConsumibles;
+    //Image[] slotsArmas;
     #region Singletons
     // Singleton
     public static DatosGuardados g_GameDataInstance;
@@ -36,10 +47,15 @@ public class DatosGuardados : MonoBehaviour {
 
     void Start()
     {
-        
+        lista = GameObject.Find("Inventory").GetComponent<Inventory>();
         zombies = GameObject.FindGameObjectsWithTag("Zombie");
-        savedGameData.positionz = new Vector3[zombies.Length];
-        savedGameData.rotacionz = new Quaternion[zombies.Length];
+     //   slotsConsumibles = consumibles.GetComponentsInChildren<Image>();
+       // slotsArmas = armas.GetComponentsInChildren<Image>();
+        zombiesSeri=new Vector3[zombies.Length];
+        zombiesRotaSeri= new Quaternion[zombies.Length];
+
+        savedGameData.positionz = zombiesSeri;
+        savedGameData.rotacionz = zombiesRotaSeri;
         savedGameData.tiempo = 300;
         savedGameData.salud = 100;
         savedGameData.energia = 100;
@@ -57,7 +73,17 @@ public class DatosGuardados : MonoBehaviour {
             savedGameData.positionz[i] = zombies[i].transform.position;
             savedGameData.rotacionz[i] = zombies[i].transform.rotation;
         }
-           /* savedGameData.positionz = zombie.transform.position;
-            savedGameData.rotacionz = zombie.transform.rotation;*/
+    /*    savedGameData.consumibles = lista.slotsConsumibles;
+        savedGameData.armas = lista.slotsArmas;*/
+
+       /* for (int i = 0; i < slotsArmas.Length; i++)
+        {
+            savedGameData.armas[i] =null;
+            savedGameData.consumibles[i] = null;
+
+        }*/
+
+        /* savedGameData.positionz = zombie.transform.position;
+         savedGameData.rotacionz = zombie.transform.rotation;*/
     }
 }

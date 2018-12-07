@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour {
 
@@ -9,12 +11,23 @@ public class Menu : MonoBehaviour {
     public bool salir = false;*/
     public GameObject menu;
 
+    // public AudioListener volumen;
+    public Slider volumenSlider;
+    public Slider volumenSliderAmbiente;
+    public Slider volumenSliderEfectos;
+    public AudioMixer volumenGeneralMixer;
+   /* private AudioMixer volumenAmbiente;
+    private AudioMixer volumenEfectos;*/
+
     // Use this for initialization
     void Start () {
         menu.transform.GetChild(7).gameObject.SetActive(false);
         menu.transform.GetChild(8).gameObject.SetActive(false);
         menu.transform.GetChild(9).gameObject.SetActive(false);
         menu.transform.GetChild(10).gameObject.SetActive(false);
+        menu.transform.GetChild(11).gameObject.SetActive(false);
+
+       // volumenGeneral.SetFloat("Master", float volumenEfectos);
     }
 	
 	// Update is called once per frame
@@ -26,8 +39,10 @@ public class Menu : MonoBehaviour {
             empezar = false;
             
         }*/
-
-	}
+        SetVolumenGeneral(volumenSlider.value);
+        SetVolumenAmbiente(volumenSliderAmbiente.value);
+        SetVolumenEfectos(volumenSliderEfectos.value);
+    }
 
     public void PulsarEmpezar()
     {
@@ -61,6 +76,7 @@ public class Menu : MonoBehaviour {
         menu.transform.GetChild(8).gameObject.SetActive(true);
         menu.transform.GetChild(9).gameObject.SetActive(true);
         menu.transform.GetChild(10).gameObject.SetActive(true);
+        menu.transform.GetChild(11).gameObject.SetActive(true);
     }
 
     public void PulsarGuardar()
@@ -75,7 +91,24 @@ public class Menu : MonoBehaviour {
         menu.transform.GetChild(8).gameObject.SetActive(false);
         menu.transform.GetChild(9).gameObject.SetActive(false);
         menu.transform.GetChild(10).gameObject.SetActive(false);
+        menu.transform.GetChild(11).gameObject.SetActive(false);
     }
 
+    public void SetVolumenGeneral(float volumenGeneral)
+    {
+        volumenGeneralMixer.SetFloat("VolumenGeneral", volumenGeneral);
+
+    }
+
+    public void SetVolumenAmbiente(float volumenAmbiente)
+    {
+        volumenGeneralMixer.SetFloat("VolumenAmbiente", volumenAmbiente);
+
+    }
+    public void SetVolumenEfectos(float volumenEfectos)
+    {
+        volumenGeneralMixer.SetFloat("VolumenEfectos", volumenEfectos);
+
+    }
 
 }

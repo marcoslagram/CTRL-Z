@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class Control : MonoBehaviour {
 
@@ -9,6 +12,12 @@ public class Control : MonoBehaviour {
     public GameObject camara;
 
     private GameObject[] enemigos;
+
+    public Transform consumibles;
+    public Transform armas;
+
+  /*  Image[] slotsConsumibles;
+    Image[] slotsArmas;*/
 
     private float tiempo;
     private Vector3 posicionj;
@@ -29,6 +38,7 @@ public class Control : MonoBehaviour {
     private bool dentro=false;
 
     public SaveDatos nuevosDatos = new SaveDatos();
+    public SaveDatos localCopyOfData=new SaveDatos();
     Caza saludd;
 
     Inventory lista;
@@ -46,6 +56,8 @@ public class Control : MonoBehaviour {
         dialogo = GameObject.Find("Gato").GetComponent<DialogoNPC>();
         datos = GameObject.Find("Player").GetComponent<DatosGuardados>();
         enemigos = GameObject.FindGameObjectsWithTag("Zombie");
+       // slotsConsumibles = consumibles.GetComponentsInChildren<Image>();
+    //    slotsArmas = armas.GetComponentsInChildren<Image>();
         nuevosDatos.positionz = new Vector3[enemigos.Length];
         nuevosDatos.rotacionz = new Quaternion[enemigos.Length];
         posicionz = new Vector3[enemigos.Length];
@@ -90,7 +102,8 @@ public class Control : MonoBehaviour {
             nuevosDatos.positionz[i] = posicionz[i];
             nuevosDatos.rotacionz[i] = rotacionz[i];
         }
-
+      //   nuevosDatos.armas = slotsArmas;
+    //    nuevosDatos.consumibles =slotsConsumibles;
     }
 	
 	// Update is called once per frame
@@ -108,7 +121,17 @@ public class Control : MonoBehaviour {
 
         nuevosDatos.objetosActivos = GameObject.FindGameObjectsWithTag("Objectos");
         nuevosDatos.zombiesActivos = GameObject.FindGameObjectsWithTag("Zombie");
+       /* nuevosDatos.armas = lista.slotsArmas;
+        nuevosDatos.consumibles = lista.slotsConsumibles;
 
+
+        for (int i = 0; i < lista.slotsArmas.Length; i++)
+        {
+            nuevosDatos.armas[i].sprite = lista.slotsArmas[i].sprite;
+            nuevosDatos.consumibles[i].sprite = lista.slotsConsumibles[i].sprite;
+        }*/
+
+        //Debug.Log(DatosGuardados.g_GameDataInstance.savedGameData.armas[0].sprite);
 
         Debug.Log(lista.myInventory.Count);
         /* // posicionz = zombie.transform.position;
@@ -136,6 +159,11 @@ public class Control : MonoBehaviour {
         //Debug.Log(nuevosDatos.usos);
 
         nuevosDatos.tiempo = tiempoDia.tiempo;
+      //  Debug.Log(lista.slotsConsumibles == lista.slotsArmas);
+        /*if (Input.GetKeyDown(KeyCode.K))
+        {
+            slotsConsumibles[0].sprite = slotsArmas[0].sprite;
+        }*/
 
         /*   if (lista.myInventory.Count > 1)
            {
@@ -145,6 +173,7 @@ public class Control : MonoBehaviour {
          {
              Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");saludd.dentro || tiempo>=30f
          }*/
+        //lista.slotsConsumibles = lista.slotsArmas;
 
 
         for (int i = 0; i < enemigos.Length; i++) { 
@@ -172,11 +201,12 @@ public class Control : MonoBehaviour {
         }
         
 
-        if (dentro || tiempo>=30f || Input.GetKeyDown(KeyCode.Z)) 
+        if (dentro || tiempo>=30f ) //|| Input.GetKeyDown(KeyCode.Z)
         {
             Debug.Log("Aqui");
           dentro = false;
             SaveDatasControl();
+          //  SaveInventoryDisk();
             tiempo = 0;
            /* if (saludd.dentro)
             {
@@ -185,7 +215,7 @@ public class Control : MonoBehaviour {
         }
         //Debug.Log(lista.usosControl > 0);
  //&& lista.usosControl>0
-        if (Input.GetKeyDown(KeyCode.LeftControl)  && lista.usosControl > 0 )//&& Input.GetKeyDown(KeyCode.Z)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Z) && lista.usosControl > 0 )//
         {
             lista.usosControl--;
             tiempo = 0;
@@ -194,6 +224,7 @@ public class Control : MonoBehaviour {
                 lista.usosControl = 0;
             }
             LoadDatasControl();
+         //   LoadPlayerDataFromDisk();
         }
 
     }
@@ -236,8 +267,10 @@ public class Control : MonoBehaviour {
         DatosGuardados.g_GameDataInstance.savedGameData.energia = nuevosDatos.energia;
         //DatosGuardados.g_GameDataInstance.savedGameData.usos = nuevosDatos.usos;
         DatosGuardados.g_GameDataInstance.savedGameData.tiempo = nuevosDatos.tiempo;
-       // DatosGuardados.g_GameDataInstance.savedGameData.sigue = nuevosDatos.sigue;
-      //  DatosGuardados.g_GameDataInstance.savedGameData.myItems = nuevosDatos.myItems;
+       // DatosGuardados.g_GameDataInstance.savedGameData.armas = nuevosDatos.armas;
+       // DatosGuardados.g_GameDataInstance.savedGameData.consumibles = nuevosDatos.consumibles;
+        // DatosGuardados.g_GameDataInstance.savedGameData.sigue = nuevosDatos.sigue;
+        //  DatosGuardados.g_GameDataInstance.savedGameData.myItems = nuevosDatos.myItems;
         DatosGuardados.g_GameDataInstance.savedGameData.objetosActivos = nuevosDatos.objetosActivos;
         DatosGuardados.g_GameDataInstance.savedGameData.zombiesActivos = nuevosDatos.zombiesActivos;
         DatosGuardados.g_GameDataInstance.savedGameData.positionj = nuevosDatos.positionj;
@@ -247,9 +280,12 @@ public class Control : MonoBehaviour {
         DatosGuardados.g_GameDataInstance.savedGameData.positionz = nuevosDatos.positionz;
         DatosGuardados.g_GameDataInstance.savedGameData.rotacionz = nuevosDatos.rotacionz;
 
-
-       
-
+/*
+        for (int i = 0; i < lista.slotsArmas.Length; i++)
+        {
+            DatosGuardados.g_GameDataInstance.savedGameData.armas[i].sprite = nuevosDatos.armas[i].sprite;
+            DatosGuardados.g_GameDataInstance.savedGameData.consumibles[i].sprite = nuevosDatos.consumibles[i].sprite;
+        }*/
 
         for (int i = 0; i < nuevosDatos.myItems.Count; i++)
         {
@@ -269,6 +305,34 @@ public class Control : MonoBehaviour {
 
     }
 
+
+    /*
+
+    public void SaveInventoryDisk()
+    {
+        // 1) Path check
+        if (!Directory.Exists("mySaves"))
+        {
+            Directory.CreateDirectory("mySaves");
+        }
+        // 2) Binary formatter
+        BinaryFormatter myFormatter = new BinaryFormatter();
+
+        // 3) Create file
+        FileStream saveFile = File.Create("mySaves/myInventory.myBinary");
+
+        // 4) Reference to data being saved
+       
+        localCopyOfData.myItems= DatosGuardados.g_GameDataInstance.savedGameData.myItems;
+        // 5) Writing data in binary form
+        myFormatter.Serialize(saveFile, localCopyOfData.myItems);
+        // 6) Close file!!!!! EXTREMELY IMPORTANT
+        saveFile.Close();
+    
+}*/
+
+
+
     public void LoadDatasControl()
     {
         if (!player.activeInHierarchy)
@@ -276,12 +340,12 @@ public class Control : MonoBehaviour {
             player.SetActive(true);
         }
     //    Debug.Log(nuevosDatos.myItems.Count + "   b");
-       for (int i = 0; i < nuevosDatos.myItems.Count; i++)
+   /*    for (int i = 0; i < nuevosDatos.myItems.Count; i++)
         {
            
             nuevosDatos.myItems.RemoveAt(0);
            
-        }
+        }*/
      
 
         for(int i=0;i< DatosGuardados.g_GameDataInstance.savedGameData.objetosActivos.Length; i++)
@@ -306,7 +370,10 @@ public class Control : MonoBehaviour {
        /* lista.SaberUsos(lista.usosControl);*/
         tiempoDia.tiempo = DatosGuardados.g_GameDataInstance.savedGameData.tiempo;
         tiempoDia.SaberTiempo(tiempoDia.tiempo);
-      //  nuevosDatos.sigue = DatosGuardados.g_GameDataInstance.savedGameData.sigue;
+
+       // nuevosDatos.armas = DatosGuardados.g_GameDataInstance.savedGameData.armas ;
+        //nuevosDatos.consumibles = DatosGuardados.g_GameDataInstance.savedGameData.consumibles;
+        //  nuevosDatos.sigue = DatosGuardados.g_GameDataInstance.savedGameData.sigue;
         nuevosDatos.objetosActivos= DatosGuardados.g_GameDataInstance.savedGameData.objetosActivos ;
         nuevosDatos.zombiesActivos = DatosGuardados.g_GameDataInstance.savedGameData.zombiesActivos;
         nuevosDatos.positionj =   DatosGuardados.g_GameDataInstance.savedGameData.positionj;
@@ -316,13 +383,20 @@ public class Control : MonoBehaviour {
         nuevosDatos.positionz = DatosGuardados.g_GameDataInstance.savedGameData.positionz;
         nuevosDatos.rotacionz = DatosGuardados.g_GameDataInstance.savedGameData.rotacionz;
 
-      
+
+
+      /*  for (int i = 0; i < lista.slotsArmas.Length; i++)
+        {
+            nuevosDatos.armas[i].sprite =  DatosGuardados.g_GameDataInstance.savedGameData.armas[i].sprite;
+            nuevosDatos.consumibles[i].sprite = DatosGuardados.g_GameDataInstance.savedGameData.consumibles[i].sprite;
+        }
+
 
 
         for (int i = 0; i < DatosGuardados.g_GameDataInstance.savedGameData.myItems.Count; i++)
         {
             nuevosDatos.myItems.Add(DatosGuardados.g_GameDataInstance.savedGameData.myItems[i]);
-        }
+        }*/
         
        // nuevosDatos.myItems = DatosGuardados.g_GameDataInstance.savedGameData.myItems;
 
@@ -341,7 +415,20 @@ public class Control : MonoBehaviour {
         /*zombie.transform.position = nuevosDatos.positionz;
         zombie.transform.rotation = nuevosDatos.rotacionz;*/
     }
+    /*
+    private void LoadPlayerDataFromDisk()
+    {
+        // 0) Binary formatter
+        BinaryFormatter myFormatter = new BinaryFormatter();
+        // 1) File opening
+        FileStream fileToLoad = File.Open("mySaves/myInventory.myBinary", FileMode.Open);
+        // 2) Deserialize to temporal variable
+        SaveDatos tempCopyOfData = (SaveDatos)myFormatter.Deserialize(fileToLoad); // Lo fuerza a ser de GameStatics y es Serializable
+        // 3) Close file!!!!! EXTREMELY IMPORTANT
+        fileToLoad.Close();
+        // 4) Decide what to do with the loaded data
+        DatosGuardados.g_GameDataInstance.savedGameData.myItems = tempCopyOfData.myItems;
+    }
 
-
-
+    */
 }

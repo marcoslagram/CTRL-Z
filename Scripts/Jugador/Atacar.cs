@@ -78,7 +78,9 @@ public class Atacar : Interactable
             if (distancia <= maxdistance)
             {
                 //mensaje debug
+                if (GestionDias.dia == 5) {
                 debugg.DebuggingText("Puede matar Zombie");
+                }
                 s = 0;
                 compro = true;
 

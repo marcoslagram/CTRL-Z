@@ -51,12 +51,14 @@ public class GestionDias : MonoBehaviour {
 
             if (Salida.usosMas == true)
             {
-                inventarioDia.usosControl++;
+                inventarioDia.usosControl += Salida.cantidad;
             }
 
             inventarioDia.myInventory = Inventory.inventarioEstatico;
 
             DialogoNPC.conversacionGatoTerminada = false;
+            Salida.usosMas = false;
+            Salida.cantidad = 0;
         }
 
         if (dia == 3)
@@ -84,12 +86,14 @@ public class GestionDias : MonoBehaviour {
 
             if (Salida.usosMas == true)
             {
-                inventarioDia.usosControl++;
+                inventarioDia.usosControl += Salida.cantidad;
             }
 
             inventarioDia.myInventory = Inventory.inventarioEstatico;
 
             DialogoNPC.conversacionGatoTerminada = false;
+            Salida.usosMas = false;
+            Salida.cantidad = 0;
         }
 
         if (dia == 4)
@@ -118,13 +122,14 @@ public class GestionDias : MonoBehaviour {
 
             if (Salida.usosMas == true)
             {
-                inventarioDia.usosControl++;
+                inventarioDia.usosControl+=Salida.cantidad;
             }
 
             inventarioDia.myInventory = Inventory.inventarioEstatico;
 
             DialogoNPC.conversacionGatoTerminada = false;
-
+            Salida.usosMas = false;
+            Salida.cantidad = 0;
         }
         
         
@@ -155,10 +160,12 @@ public class GestionDias : MonoBehaviour {
 
             if (Salida.usosMas == true)
             {
-                inventarioDia.usosControl++;
+                inventarioDia.usosControl += Salida.cantidad;
             }
 
             inventarioDia.myInventory = Inventory.inventarioEstatico;
+            Salida.usosMas = false;
+            Salida.cantidad = 0;
         }
     }
 	

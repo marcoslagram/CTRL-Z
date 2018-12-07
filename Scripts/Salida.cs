@@ -9,14 +9,18 @@ public class Salida : MonoBehaviour {
     private Scene scene;
 
     private Inventory invetarioDia;
+    private Tiempo tiempo;
 
     public static bool usosMas = false;
+    public static int cantidad = 0;
+    public static float tiempoRestante=0f;
 
    
     // Use this for initialization
     void Start () {
         scene = SceneManager.GetActiveScene();
         invetarioDia = GameObject.Find("Inventory").GetComponent<Inventory>();
+        tiempo = GameObject.Find("Player").GetComponent<Tiempo>();
     }
 	
 	// Update is called once per frame
@@ -34,6 +38,7 @@ public class Salida : MonoBehaviour {
                 if (invetarioDia.myInventory[i].itemName.ToString() == "LataConserva")
                 {
                     usosMas = true;
+                    cantidad = invetarioDia.myInventory[i].cantidad;
                 }
                 else
                 {
@@ -42,6 +47,7 @@ public class Salida : MonoBehaviour {
             }
             GestionDias.dia++;
             Inventory.inventarioEstatico = invetarioDia.myInventory;
+            
             //  Application.LoadLevel(Application.loadedLevel);
             SceneManager.LoadScene(scene.name);
         }

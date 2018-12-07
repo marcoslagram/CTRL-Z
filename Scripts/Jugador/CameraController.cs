@@ -102,10 +102,17 @@ public class CameraController : MonoBehaviour
 
             altura += Input.GetAxis("Mouse Y") * Time.deltaTime * -velocidadVertical;
         }
+
+
+        else if (Input.GetKey(KeyCode.N))
+        {
+            Debug.Log("AaaAAa");
+            myCamara.y = myCamara.y + 180;
+        }
         //Para que se coloque en sitio correspondiente
         Vector3 nuevaPosicionCamara = myPlayer.transform.position + myCamara;
 
-        ;
+        
 
 
 

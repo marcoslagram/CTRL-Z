@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 [Serializable]
@@ -14,6 +15,8 @@ public class SaveDatos{
   //  public bool sigue;
 
     public List<Items> myItems;
+  //  public Image[] consumibles;
+   // public Image[] armas;
 
     public Vector3 positionj;
     public Quaternion rotacionj;
