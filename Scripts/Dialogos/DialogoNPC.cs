@@ -132,7 +132,7 @@ public class DialogoNPC : Interactable {
         //Le pongo el nombre del objecto
         nombreNPC = this.transform.name;
         //lo pongo de color azul
-        this.transform.GetComponent<Renderer>().material.color= Color.blue;
+       // this.transform.GetComponent<Renderer>().material.color= Color.blue;
         //Debug fin conversacion
         debugg = GameObject.Find("DebugText").GetComponent<DebugText>();
        // pulsad = pulsar.pulsado;
@@ -152,6 +152,8 @@ public class DialogoNPC : Interactable {
 
      void Update()
     {
+
+        //Debug.Log(Menu.idiomaElegido + "Idioma");
 
         zombies = GameObject.FindGameObjectsWithTag("Zombie");
         // tiempoDia.enabled = true;
@@ -176,7 +178,7 @@ public class DialogoNPC : Interactable {
                  zombies[i].GetComponent<NavMeshAgent>().enabled = false;
                  zombies[i].GetComponent<Zombi>().enabled = false;
             }
-            Debug.Log(zombies.Length);
+          //  Debug.Log(zombies.Length);
             dialogo.SetActive(true);
                dialogo.transform.GetChild(3).gameObject.SetActive(false);//opcion 1
                dialogo.transform.GetChild(4).gameObject.SetActive(false);//opcion 2

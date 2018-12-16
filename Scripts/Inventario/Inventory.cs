@@ -21,11 +21,17 @@ public class Inventory : Interactable {
    public Image[] slotsConsumibles;
   public  Image[] slotsArmas;
 
+
     public static List<Items> inventarioEstatico = new List<Items>();
     private DebugText debugg;
    private GameObject[] g;
     private ItemsBase myBase;
     private GameObject gal;
+
+    public bool recoger = false;
+    public bool tirarRadio = false;
+    public bool consumirObjeto = false;
+
     int s = 0;
    public int energia;
     string inventario;
@@ -40,6 +46,11 @@ public class Inventory : Interactable {
     // private bool interacciono=false;
     int x;
     public int usosControl;
+
+    public float tiempoCompro = 0f;
+    public float tiempoCorrer = 0f;
+    public float tiempoRecuperar = 0f;
+    public bool correr = true;
 
     private bool abierto = false;
     // Use this for initialization
@@ -79,8 +90,78 @@ public class Inventory : Interactable {
                   usosControl = 0;
               }
           }*/
+
+
+        if (myInventory.Count > 0)
+        {
+            Debug.Log(myInventory[0]);
+        }
+
+
+        if (energia > 0)
+        {
+            correr = true;
+        }
+
+        else
+        {
+            correr = false;
+        }
+
+
+       // Debug.Log("En  " + energia);
+
+        if (Input.GetButton("Correr") && (Input.GetAxis("Vertical") > 0 || Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") < 0 || Input.GetAxis("Horizontal") < 0))
+        {
+          //  Debug.Log("Entr");
+            tiempoCompro = tiempoCompro + 1 * Time.deltaTime;
+            if (tiempoCompro >= 3f)
+            {
+                tiempoCorrer = tiempoCorrer + 1 * Time.deltaTime;
+                if (tiempoCorrer >= 1f)
+                {
+                    if (energia > 0)
+                    {
+                        energia = energia - 5;
+                    }
+
+                    else
+                    {
+                        
+                    }
+                    
+                    tiempoCorrer = 0f;
+                }
+            }
+        }
+
+        else
+        {
+            tiempoCompro = 0f;
+            tiempoRecuperar = tiempoRecuperar + 1 * Time.deltaTime;
+
+            if (tiempoRecuperar >= 5f)
+            {
+                if (energia == 100)
+                {
+                    energia = 100;
+                }
+                else
+                {
+                    energia = energia + 5;
+                }
+
+                tiempoRecuperar = 0f;
+                
+            }
+
+
+        }
+
+        recoger = false;
+        tirarRadio = false;
       //  Debug.Log(jugador.transform.forward);
-        AsignarSpriteCorrespondiente();
+       // AsignarSpriteCorrespondiente();
         ActualizarCanvasInventario();
         // usosControl = SaberUsos(usosControl);
         usosH.text = "CTRL+Z: " + usosControl.ToString();
@@ -91,6 +172,8 @@ public class Inventory : Interactable {
         //Si hay algun item repetido le incremento la cantidad 
         
         ItemsInventarioRepetidos();
+
+      
      
         //Abrir inventario
         if (Input.GetKeyDown(KeyCode.I))
@@ -225,7 +308,7 @@ public class Inventory : Interactable {
                 {
                     myInventory[i].cantidad--;
                 }
-
+                consumirObjeto = true;
                 miEconomia.salud = 100;
                 
             }
@@ -257,8 +340,8 @@ public class Inventory : Interactable {
                 {
                     myInventory[i].cantidad--;
                 }
-
-               energia = 100;
+                consumirObjeto = true;
+                energia = 100;
 
             }
 
@@ -289,7 +372,7 @@ public class Inventory : Interactable {
                 {
                     myInventory[i].cantidad--;
                 }
-
+                tirarRadio = true;
                 radio.transform.position = jugador.transform.position +jugador.transform.forward+jugador.transform.right;
                 radio.SetActive(true);
                
@@ -342,7 +425,29 @@ public class Inventory : Interactable {
             if (distancia <= maxdistance)
             {
                 //mensaje debug
-                debugg.DebuggingText("Pulsa E para interactuar con el objecto");
+                debugg.DebuggingText("Pulsa E para interactuar con el objeto");
+
+                recoger = true;
+
+               // Debug.Log(recoger);
+                //Idioma elegido
+                if (Menu.idiomaElegido == 0)
+                {
+                    //debugg.DebuggingText("Pulsa E para interactuar con el objeto");
+                }
+
+              
+                else if (Menu.idiomaElegido == 1)
+                {
+                    //debugg.DebuggingText("Pulsa E para interactuar co obxecto");
+                }
+
+                else if (Menu.idiomaElegido == 2)
+                {
+                    //debugg.DebuggingText("Press down E for interact with the object");
+                }
+
+
                 s = 0;
                 compro = true;
 
@@ -351,7 +456,7 @@ public class Inventory : Interactable {
                    if (Input.GetKey(KeyCode.E))
                     {
 
-                
+                    
                     //Se añade al inventario
                     myInventory.Add(myBase.myItems[x]);
                    // AsignarSpriteCorrespondiente();
@@ -393,15 +498,15 @@ public class Inventory : Interactable {
         {
             x = 0;
         }
-        else if (g[i].transform.name == "LataConserva")
+        else if (g[i].transform.name == "LataConserva" || g[i].transform.name == "LataConserva(Clone)")
         {
             x = 1;
         }
-        else if (g[i].transform.name == "PiedraEspecial")
+        else if (g[i].transform.name == "PiedraEspecial" || g[i].transform.name == "PiedraEspecial(Clone)")
         {
             x = 2;
         }
-        else if (g[i].transform.name == "Tarta")
+        else if (g[i].transform.name == "Tarta" || g[i].transform.name == "Tarta(Clone)")
         {
             x = 3;
         }
@@ -417,7 +522,7 @@ public class Inventory : Interactable {
         {
             x = 6;
         }
-        else if (g[i].transform.name == "Radio")
+        else if (g[i].transform.name == "Radio" || g[i].transform.name == "Radio(Clone)")
         {
             x = 7;
         }
@@ -469,18 +574,79 @@ public class Inventory : Interactable {
             {
                 slotsConsumibles[0].sprite = myInventory[i].itemSprite;
                 slotsConsumibles[0].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
-                slotsConsumibles[0].transform.GetChild(2).GetComponent<Text>().text = myInventory[i].itemDescription;
+
+
+                //Segun el idioma elegido
+                if (Menu.idiomaElegido == 0)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 1)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en gallego
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 2)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en inglés
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+
+                slotsConsumibles[0].transform.GetChild(1).GetComponent<Text>().text = myInventory[i].itemDescription;////////////////////////
             }
             else if (myInventory[i].id == 2)
             {
                 slotsConsumibles[1].sprite = myInventory[i].itemSprite;
                 slotsConsumibles[1].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+
+                //Segun el idioma elegido
+                if (Menu.idiomaElegido == 0)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 1)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en gallego
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 2)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en inglés
+                    // myInventory[i].itemDescription = ".......";
+                }
                 slotsConsumibles[1].transform.GetChild(2).GetComponent<Text>().text = myInventory[i].itemDescription;
             }
             else if (myInventory[i].id == 3)
             {
                 slotsConsumibles[3].sprite = myInventory[i].itemSprite;
                 slotsConsumibles[3].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+
+                //Segun el idioma elegido
+                if (Menu.idiomaElegido == 0)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 1)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en gallego
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 2)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en inglés
+                    // myInventory[i].itemDescription = ".......";
+                }
+
                 slotsConsumibles[3].transform.GetChild(2).GetComponent<Text>().text = myInventory[i].itemDescription;
             }
 
@@ -489,6 +655,26 @@ public class Inventory : Interactable {
                
                 slotsConsumibles[5].sprite = myInventory[i].itemSprite;
                 slotsConsumibles[5].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+
+                //Segun el idioma elegido
+                if (Menu.idiomaElegido == 0)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 1)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en gallego
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 2)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en inglés
+                    // myInventory[i].itemDescription = ".......";
+                }
+
                 slotsConsumibles[5].transform.GetChild(2).GetComponent<Text>().text = myInventory[i].itemDescription;
             }
 
@@ -500,22 +686,263 @@ public class Inventory : Interactable {
 
        public void ActualizarCanvasInventario()
        {
-            for (int i = 0; i < myInventory.Count; i++)
+        //si inventario está vacio
+        if (myInventory.Count == 0)
+        {
+            for(int i = 0; i < slotsArmas.Length; i++)
             {
-                if (myInventory[i].id == 7)
-                {
-                slotsConsumibles[5].sprite = myInventory[i].itemSprite;
-                slotsConsumibles[5].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
-                
+                slotsArmas[i].sprite = null;
+            }
 
+            slotsConsumibles[0].sprite = null;
+            slotsConsumibles[0].transform.GetChild(0).GetComponent<Text>().text = null;
+            slotsConsumibles[0].transform.GetChild(1).GetComponent<Text>().text = null;
+            slotsConsumibles[1].sprite = null;
+            slotsConsumibles[1].transform.GetChild(0).GetComponent<Text>().text = null;
+            slotsConsumibles[1].transform.GetChild(2).GetComponent<Text>().text = null;
+            slotsConsumibles[3].sprite = null;
+            slotsConsumibles[3].transform.GetChild(0).GetComponent<Text>().text = null;
+            slotsConsumibles[3].transform.GetChild(2).GetComponent<Text>().text = null;
+            slotsConsumibles[5].sprite = null;
+            slotsConsumibles[5].transform.GetChild(0).GetComponent<Text>().text = null;
+            slotsConsumibles[5].transform.GetChild(2).GetComponent<Text>().text = null;
+        }
+
+
+        for (int i = 0; i < myInventory.Count; i++)
+        {
+            //Armas
+            if (myInventory[i].id == 0)
+            {
+                slotsArmas[0].sprite = myInventory[i].itemSprite;
+                break;
+            }
+
+
+            else
+            {
+                slotsArmas[0].sprite = null;
+            }
+
+        }
+
+        for (int i = 0; i < myInventory.Count; i++)
+        {
+
+            if (myInventory[i].id == 4)
+            {
+                slotsArmas[1].sprite = myInventory[i].itemSprite;
+                break;
+            }
+
+            else
+            {
+                slotsArmas[1].sprite = null;
+            }
+
+        }
+
+        for (int i = 0; i < myInventory.Count; i++)
+        {
+
+            if (myInventory[i].id == 5)
+            {
+                slotsArmas[2].sprite = myInventory[i].itemSprite;
+                break;
+            }
+
+            else
+            {
+                slotsArmas[2].sprite = null;
+            }
+        }
+
+        for (int i = 0; i < myInventory.Count; i++)
+        {
+            if (myInventory[i].id == 6)
+            {
+                slotsArmas[3].sprite = myInventory[i].itemSprite;
+                break;
+            }
+
+            else
+            {
+                slotsArmas[3].sprite = null;
+            }
+        }
+        //Consumibles
+
+        for (int i = 0; i < myInventory.Count; i++)
+        {
+
+            if (myInventory[i].id == 1)
+            {
+                slotsConsumibles[0].sprite = myInventory[i].itemSprite;
+                slotsConsumibles[0].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+
+
+                //Segun el idioma elegido
+                if (Menu.idiomaElegido == 0)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español
+                    // myInventory[i].itemDescription = ".......";
                 }
 
-                else
+                else if (Menu.idiomaElegido == 1)
                 {
+                    //Aqui se pondría la descripcion del ojecto en español en gallego
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 2)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en inglés
+                    // myInventory[i].itemDescription = ".......";
+                }
+                slotsConsumibles[0].transform.GetChild(1).GetComponent<Text>().text = myInventory[i].itemDescription;
+
+                //   myInventory.Contains("Palo")
+                break;
+            }
+
+            else
+            {
+                slotsConsumibles[0].sprite = null;
+                slotsConsumibles[0].transform.GetChild(0).GetComponent<Text>().text = null;
+                slotsConsumibles[0].transform.GetChild(1).GetComponent<Text>().text = null;
+
+            }
+
+
+        }
+
+        for (int i = 0; i < myInventory.Count; i++)
+        {
+
+            if (myInventory[i].id == 2)
+            {
+                slotsConsumibles[1].sprite = myInventory[i].itemSprite;
+                slotsConsumibles[1].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+
+                //Segun el idioma elegido
+                if (Menu.idiomaElegido == 0)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 1)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en gallego
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 2)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en inglés
+                    // myInventory[i].itemDescription = ".......";
+                }
+                slotsConsumibles[1].transform.GetChild(2).GetComponent<Text>().text = myInventory[i].itemDescription;
+
+                break;
+
+            }
+
+            else
+            {
+                slotsConsumibles[1].sprite = null;
+                slotsConsumibles[1].transform.GetChild(0).GetComponent<Text>().text = null;
+                slotsConsumibles[1].transform.GetChild(2).GetComponent<Text>().text = null;
+
+            }
+
+        }
+
+
+        for (int i = 0; i < myInventory.Count; i++)
+        {
+
+            if (myInventory[i].id == 3)
+            {
+                slotsConsumibles[3].sprite = myInventory[i].itemSprite;
+                slotsConsumibles[3].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+
+                //Segun el idioma elegido
+                if (Menu.idiomaElegido == 0)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 1)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en gallego
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 2)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en inglés
+                    // myInventory[i].itemDescription = ".......";
+                }
+                slotsConsumibles[3].transform.GetChild(2).GetComponent<Text>().text = myInventory[i].itemDescription;
+
+                break;
+
+            }
+
+
+            else
+            {
+                slotsConsumibles[3].sprite = null;
+                slotsConsumibles[3].transform.GetChild(0).GetComponent<Text>().text = null;
+                slotsConsumibles[3].transform.GetChild(2).GetComponent<Text>().text = null;
+
+            }
+
+        }
+
+        for (int i = 0; i < myInventory.Count; i++)
+        {
+
+
+            if (myInventory[i].id == 7)
+            {
+                slotsConsumibles[5].sprite = myInventory[i].itemSprite;
+                slotsConsumibles[5].transform.GetChild(0).GetComponent<Text>().text = myInventory[i].cantidad.ToString();
+
+                //Segun el idioma elegido
+                if (Menu.idiomaElegido == 0)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 1)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en gallego
+                    // myInventory[i].itemDescription = ".......";
+                }
+
+                else if (Menu.idiomaElegido == 2)
+                {
+                    //Aqui se pondría la descripcion del ojecto en español en inglés
+                    // myInventory[i].itemDescription = ".......";
+                }
+                slotsConsumibles[5].transform.GetChild(2).GetComponent<Text>().text = myInventory[i].itemDescription;
+
+                break;
+
+            }
+
+            else
+            {
                 slotsConsumibles[5].sprite = null;
                 slotsConsumibles[5].transform.GetChild(0).GetComponent<Text>().text = null;
-                 }
+                slotsConsumibles[5].transform.GetChild(2).GetComponent<Text>().text = null;
+
             }
+        }
         
        }
 

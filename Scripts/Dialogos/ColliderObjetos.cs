@@ -19,7 +19,7 @@ public class ColliderObjetos : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.transform.name == "LataConserva")
+        if (other.gameObject.transform.name == "LataConserva" || other.gameObject.transform.name == "LataConserva(Clone)")
         {
 
             Debug.Log("1");
@@ -31,7 +31,7 @@ public class ColliderObjetos : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.transform.name == "LataConserva")
+        if (other.gameObject.transform.name == "LataConserva" || other.gameObject.transform.name == "LataConserva(Clone)")
         {
           //  Debug.Log("3");
             colliderLata = true;

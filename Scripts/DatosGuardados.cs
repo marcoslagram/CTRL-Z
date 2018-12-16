@@ -24,6 +24,7 @@ public class DatosGuardados : MonoBehaviour {
 
     #region Public variables
     public SaveDatos savedGameData = new SaveDatos();
+    public ControladorDatosJuego saveDataDisk = new ControladorDatosJuego();
     public GameObject[] zombies;
     #endregion
 
@@ -36,7 +37,7 @@ public class DatosGuardados : MonoBehaviour {
         if (g_GameDataInstance == null)
         {
             g_GameDataInstance = this;
-          //  DontDestroyOnLoad(gameObject);
+          //  DontDestroyOnLoad(gameObject);            //este nos va a servir para poder usar cosas de una escena en otra
         }
         else
         {
@@ -60,8 +61,16 @@ public class DatosGuardados : MonoBehaviour {
         savedGameData.salud = 100;
         savedGameData.energia = 100;
         savedGameData.usos = 4;
-      //  savedGameData.sigue = false;
-        //savedGameData.myItems = new List<Items>();
+        savedGameData.objetosActivos = GameObject.FindGameObjectsWithTag("Objectos");
+        //  savedGameData.sigue = false;
+        savedGameData.myItems = new List<Items>();
+
+        for (int i = 0; i < lista.myInventory.Count; i++)
+        {
+
+            savedGameData.myItems.Add(lista.myInventory[i]);
+        }
+      //;lista.myInventory
         savedGameData.positionj = player.transform.position;
         savedGameData.rotacionj = player.transform.rotation;
         savedGameData.positionc = camara.transform.position;

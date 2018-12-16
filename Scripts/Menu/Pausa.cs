@@ -43,9 +43,11 @@ public class Pausa : MonoBehaviour {
         volumenGeneral=GetVolumenGeneral();
         volumenAmbiente = GetVolumenAmbiente();
         volumenEfectos = GetVolumenEfectos();
+
+
         volumenSlider.value = volumenGeneral;
         volumenSliderAmbiente.value = volumenAmbiente;
-        volumenSlider.value = volumenEfectos;
+        volumenSliderEfectos.value = volumenEfectos;
 
         // volumenGeneral.SetFloat("Master", float volumenEfectos);
 
@@ -89,7 +91,7 @@ public class Pausa : MonoBehaviour {
         if (!pausaCanvas.activeInHierarchy && DialogoNPC.salieronDialog)
         {
 
-            Debug.Log("Activoo");
+          //  Debug.Log("Activoo");
             tiempoDia.enabled = true;
             miControl.enabled = true;
             invetarioDia.enabled = true;
@@ -134,8 +136,30 @@ public class Pausa : MonoBehaviour {
 
         pausaCanvas.SetActive(false);
 
-        /* volumenAmbiente.SetFloat("Ambiente", volumenSliderAmbiente.value);
-         volumenEfectos.SetFloat("Movimiento", volumenSlider.value);*/
+        if (DialogoNPC.salieronDialog)
+        {
+
+
+            for (int i = 0; i < zombies.Length; i++)
+            {
+
+                zombies[i].GetComponent<NavMeshAgent>().enabled = true;
+                zombies[i].GetComponent<Zombi>().enabled = true;
+            }
+
+            Debug.Log("Activoo");
+            tiempoDia.enabled = true;
+            miControl.enabled = true;
+            invetarioDia.enabled = true;
+            movePlayer.enabled = true;
+            moveCamara.enabled = true;
+            salto.enabled = true;
+            sonido.enabled = true;
+            /* volumenAmbiente.SetFloat("Ambiente", volumenSliderAmbiente.value);
+             volumenEfectos.SetFloat("Movimiento", volumenSlider.value);*/
+        }
+
+       
 
     }
 
@@ -164,15 +188,15 @@ public class Pausa : MonoBehaviour {
 
     public float GetVolumenAmbiente()
     {
-        volumenGeneralMixer.GetFloat("VolumenGeneral", out volumenAmbiente);
+        volumenGeneralMixer.GetFloat("VolumenAmbiente", out volumenAmbiente);
 
         return volumenAmbiente;
     }
 
     public float GetVolumenEfectos()
     {
-        volumenGeneralMixer.GetFloat("VolumenGeneral", out volumenEfectos);
-
+        volumenGeneralMixer.GetFloat("VolumenEfectos", out volumenEfectos);
+       // Debug.Log(volumenEfectos);
         return volumenEfectos;
     }
 }

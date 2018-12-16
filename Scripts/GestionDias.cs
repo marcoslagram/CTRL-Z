@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GestionDias : MonoBehaviour {
 
+    public PlayerController carga;
+    public PlayerController guarda;
+    //public PrefsController cargaPrefs;
     
     public static int dia = 1;
 
@@ -16,6 +19,12 @@ public class GestionDias : MonoBehaviour {
 
         inventarioDia = GameObject.Find("Inventory").GetComponent<Inventory>();
 
+        if(Menu.continuar == true)
+        {
+            //carga.LoadPlayerDataFromDisk();
+                        //cargaPrefs.LoadPreferencesFromDisk();
+        }
+
         if (dia == 1)
         {
             GameObject.Find("Piedra").SetActive(false);
@@ -24,6 +33,7 @@ public class GestionDias : MonoBehaviour {
             GameObject.Find("Hacha").SetActive(false);
 
             inventarioDia.usosControl = 2;
+          //  guarda.SavePlayerDataToDisk();
             
 
         }
@@ -59,6 +69,7 @@ public class GestionDias : MonoBehaviour {
             DialogoNPC.conversacionGatoTerminada = false;
             Salida.usosMas = false;
             Salida.cantidad = 0;
+          //  guarda.SavePlayerDataToDisk();
         }
 
         if (dia == 3)
@@ -94,6 +105,7 @@ public class GestionDias : MonoBehaviour {
             DialogoNPC.conversacionGatoTerminada = false;
             Salida.usosMas = false;
             Salida.cantidad = 0;
+           // guarda.SavePlayerDataToDisk();
         }
 
         if (dia == 4)
@@ -106,7 +118,6 @@ public class GestionDias : MonoBehaviour {
             GameObject.Find("LataConserva").transform.position = new Vector3(-51.9f, 0.5f, 51f);
             GameObject.Find("Tarta").transform.position = new Vector3(120.5f, 0.894f, 25.4f);
             GameObject.Find("PiedraEspecial").transform.position = new Vector3(121.4f, 0.5f, -117.5f);
-
             if (respuesta)
             {
                
@@ -130,6 +141,7 @@ public class GestionDias : MonoBehaviour {
             DialogoNPC.conversacionGatoTerminada = false;
             Salida.usosMas = false;
             Salida.cantidad = 0;
+         //   guarda.SavePlayerDataToDisk();
         }
         
         
@@ -166,7 +178,9 @@ public class GestionDias : MonoBehaviour {
             inventarioDia.myInventory = Inventory.inventarioEstatico;
             Salida.usosMas = false;
             Salida.cantidad = 0;
+          //  guarda.SavePlayerDataToDisk();
         }
+        Menu.continuar = false;
     }
 	
 	/*// Update is called once per frame

@@ -21,6 +21,14 @@ public class Caza : MonoBehaviour {
 
     public bool dentro = false;
     public bool entrado = false;
+
+    private float tiempoMatar;
+
+    
+
+
+    //private NavMeshSurface[] surfaces;
+
     /* public bool pulsad;
      public Interactable pulsar;*/
     // Use this for initialization
@@ -33,6 +41,13 @@ public class Caza : MonoBehaviour {
         debugg = GameObject.Find("DebugText").GetComponent<DebugText>();
         salud= GameObject.Find("Enemigo").GetComponent<Economia>();
         // pulsad = pulsar.pulsado;
+
+
+     /*   for (int i = 0; i < surfaces.Length; i++)
+        {
+            surfaces[i].BuildNavMesh();
+        }*/
+       
     }
 
     /* void Update()
@@ -63,24 +78,52 @@ public class Caza : MonoBehaviour {
              dentro = true;
          }
      }*/
-     
-    
+
+    void Update()
+    {
+    //   navegacion.b
+           if (salud.salud == 0)
+        {
+            debugg.DebuggingText("Se acabo el juego");
+            GameObject.Find("Cube").SetActive(false);
+        }
+        // tiempoMatar = tiempoMatar + 1 * Time.deltaTime;
+    }
+
+
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.transform.name == "Cube")
         {
-            entrado = true;
-            //navegacion.destination = objetivo.position;
+            tiempoMatar = tiempoMatar + 1 * Time.deltaTime;
+
+            if (tiempoMatar > 1f)
+            {
+                salud.salud = salud.salud - 10;
+                tiempoMatar = 0f;
+            }
+            
+            // entrado = false;
+
         }
+
+      /*  if (salud.salud == 0)
+        {
+            debugg.DebuggingText("Se acabo el juego");
+            GameObject.Find("Cube").SetActive(false);
+        }*/
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.transform.name == "Cube")
         {
-            entrado = false;
-        
+            salud.salud = salud.salud - 10;
+            // entrado = false;
+
         }
+
+     
     }
 
 
@@ -94,7 +137,7 @@ public class Caza : MonoBehaviour {
     }*/
 
     //Funcion para que le haga daño, sino solo lo perseguiria
-    void OnCollisionEnter(Collision collision)
+  /*  void OnCollisionEnter(Collision collision)
     {
 
         if (collision.gameObject.transform.name == "Cube")
@@ -119,12 +162,12 @@ public class Caza : MonoBehaviour {
 
         //Debug.Log(collision.gameObject.name);   //asi nos dice el objeto con el que esta colisionando
         //Debug.Log("Colisionando");
-        /* damage++;
-         Debug.Log("Daño es igual a " + damage);
-         return damage;*/
+        // damage++;
+         //Debug.Log("Daño es igual a " + damage);
+         //return damage;
         //Ahora lo que quiero es que cuando colisione la esfera con el cubo, el cubo cambie alguna de sus propiedades
         //transform.GetComponent<Renderer>.material.color = Color.magenta; //para esto necesitamos un método Interact();
-    }
+    }*/
 
     public int SaberSalud(int salud)
     {

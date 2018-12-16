@@ -23,6 +23,7 @@ public class Zombi : MonoBehaviour {
     private GameObject[,] matriz_Balizas = null;
     private bool repetido = false;
     private bool repetido2 = false;
+    private bool meDistraje = false;
 
     // Variables para distraccion
     private float probabilidadDistraccion = 1.0f; //Ira disminuyendo a medida que distraigas con el objeto
@@ -32,16 +33,22 @@ public class Zombi : MonoBehaviour {
     private GameObject[] Distractores;
     private float meDistraigo = 0.0f;
     public float factorOlvido = 0.002f;
+    private float timerMax = 0;
+    private float timer = 0;
+    public float tiempo_espera_distraido = 5;
 
     //Posibilidad de activar o desactivar IA
     public bool ActivarIA = true;
     public float factorAprendizaje = 0.25f;
 
+
     // Use this for initialization
 
-    void Start () {
+    void Start()
+    {
 
-        if (agent == null) {
+        if (agent == null)
+        {
             agent = this.gameObject.GetComponent<NavMeshAgent>();
         }
 
@@ -79,41 +86,45 @@ public class Zombi : MonoBehaviour {
             for (int c = 0; c < columnas_Balizas; c++)
             {
                 float probabilidad_salida = 1.0f;
-                if (matriz_Balizas[f,c].GetComponent<Punto>().Norte)
+                if (matriz_Balizas[f, c].GetComponent<Punto>().Norte)
                 {
-                    decisiones_Baliza[f,c,0] = probabilidad_salida;
-                } else
-                {
-                    decisiones_Baliza[f,c,0] = 0f;
+                    decisiones_Baliza[f, c, 0] = probabilidad_salida;
                 }
-                
-                if (matriz_Balizas[f,c].GetComponent<Punto>().Sur)
+                else
                 {
-                    decisiones_Baliza[f,c,1] = probabilidad_salida;
-                } else
-                {
-                    decisiones_Baliza[f,c,1] = 0f;
+                    decisiones_Baliza[f, c, 0] = 0f;
                 }
-                if (matriz_Balizas[f,c].GetComponent<Punto>().Este)
+
+                if (matriz_Balizas[f, c].GetComponent<Punto>().Sur)
                 {
-                    decisiones_Baliza[f,c,2] = probabilidad_salida;
-                } else
-                {
-                    decisiones_Baliza[f,c,2] = 0f;
+                    decisiones_Baliza[f, c, 1] = probabilidad_salida;
                 }
-                if (matriz_Balizas[f,c].GetComponent<Punto>().Oeste)
+                else
                 {
-                    decisiones_Baliza[f,c,3] = probabilidad_salida;
-                } else
-                {
-                    decisiones_Baliza[f,c,3] = 0f;
+                    decisiones_Baliza[f, c, 1] = 0f;
                 }
-         //       print("Baliza[" + f + "][" + c + "] Norte: "+ decisiones_Baliza[f,c,0] + " Sur:" + decisiones_Baliza[f, c, 1] + " Este:" + decisiones_Baliza[f, c, 2] + " Oeste: " + decisiones_Baliza[f, c, 3]);
+                if (matriz_Balizas[f, c].GetComponent<Punto>().Este)
+                {
+                    decisiones_Baliza[f, c, 2] = probabilidad_salida;
+                }
+                else
+                {
+                    decisiones_Baliza[f, c, 2] = 0f;
+                }
+                if (matriz_Balizas[f, c].GetComponent<Punto>().Oeste)
+                {
+                    decisiones_Baliza[f, c, 3] = probabilidad_salida;
+                }
+                else
+                {
+                    decisiones_Baliza[f, c, 3] = 0f;
+                }
+                //print("Baliza[" + f + "][" + c + "] Norte: "+ decisiones_Baliza[f,c,0] + " Sur:" + decisiones_Baliza[f, c, 1] + " Este:" + decisiones_Baliza[f, c, 2] + " Oeste: " + decisiones_Baliza[f, c, 3]);
             }
         }
 
         //Indica donde está el jugador para perseguirlo si está muy cerca
-        Player = GameObject.FindWithTag("Player").transform;   
+        Player = GameObject.FindWithTag("Player").transform;
 
         // Disabling auto-braking allows for continuous movement
         // between points (ie, the agent doesn't slow down as it
@@ -133,17 +144,16 @@ public class Zombi : MonoBehaviour {
         // Returns if no points have been set up
         if (matriz_Balizas.Length == 0)
         {
-           // print("ERROR EN LAS LONGITUDES DE LA MATRIZ_BALIZAS_POSICION");
+            //print("ERROR EN LAS LONGITUDES DE LA MATRIZ_BALIZAS_POSICION");
             return;
         }
 
         // Set the agent to go to the currently selected destination.
-        // print("Valor destPoint_columna: " + destPoint_columna);
+        //print("Valor destPoint_columna: " + destPoint_columna);
         //print("Valor destPoint_fila: " + destPoint_fila);
 
         //print("MatrizBalizasDestino: " + matriz_Balizas[destPoint_fila, destPoint_columna].transform.position);
-
-
+        //Corrige un posible fallo
         if (destPoint_fila == -1)
         {
             destPoint_fila = 1;
@@ -165,27 +175,27 @@ public class Zombi : MonoBehaviour {
     void PersigueJugador()
     {
         //Si es la primera iteraccion, al no haber elecion anterior no hace nada
-        if((destPoint_fila_anterior != -1) && !repetido)
+        if ((destPoint_fila_anterior != -1) && !repetido)
         {
             //Si puede perseguir al jugador beneficia la eleccion anterior
             decisiones_Baliza[destPoint_fila_anterior, destPoint_columna_anterior, eleccion_anterior] = (decisiones_Baliza[destPoint_fila_anterior, destPoint_columna_anterior, eleccion_anterior] * (factorAprendizaje + 1));
         }
         repetido = true;
-        
-       
+
+
         //Las actuales pasan a ser las anteriores
         destPoint_fila_anterior = destPoint_fila;
         destPoint_columna_anterior = destPoint_columna;
         eleccion_anterior = eleccion;
 
-        
+
         agent.SetDestination(Player.position);
     }
 
     void distraccion()
     {
-        
-        
+
+
         for (int i = 0; i < Distractores.Length; i++)
         {
             estaDistraido = Distractores[i].GetComponent<Distractor>().distrae;
@@ -194,6 +204,8 @@ public class Zombi : MonoBehaviour {
                 agent.SetDestination(Distractores[i].transform.position);
                 if (agent.remainingDistance < 1.5f)
                 {
+                    //Espero un tiempo
+                    if (!Waited(tiempo_espera_distraido)) return;
                     //Calculo la distancia a la que estoy del jugador
                     Vector3 posicionJugador = Player.transform.position;
                     Vector3 posicionZombi = transform.position;
@@ -202,14 +214,17 @@ public class Zombi : MonoBehaviour {
                     //Vario la probabilidad de ir al objeto distractor teniendo en cuenta esa distancia
                     float decrementoProbDistraccion = 0.75f * (distanciaJugador / distancia_maxima);
                     probabilidadDistraccion -= decrementoProbDistraccion;
+                    meDistraje = false;
+                    //Desactivo el objeto distractor
                     Distractores[i].GetComponent<Distractor>().distrae = false;
+
                 }
                 break;
             }
         }
 
         estaDistraido = false;
-      
+
     }
 
     void ElegirPunto()
@@ -228,19 +243,22 @@ public class Zombi : MonoBehaviour {
         if (randomPoint < decisiones_Baliza[destPoint_fila, destPoint_columna, 0])
         {
             eleccion = 0;
-        } else if (randomPoint < suma2)
+        }
+        else if (randomPoint < suma2)
         {
             eleccion = 1;
-        } else if (randomPoint < suma3)
+        }
+        else if (randomPoint < suma3)
         {
             eleccion = 2;
-        } else
+        }
+        else
         {
             eleccion = 3;
         }
-       // print("Eleccion: " + eleccion);
-            //Si 0 va al Norte, si 1 va a Sur, si 2 va al Este y si 3 va al Oeste
-            switch (eleccion)
+        //print("Eleccion: " + eleccion);
+        //Si 0 va al Norte, si 1 va a Sur, si 2 va al Este y si 3 va al Oeste
+        switch (eleccion)
         {
             case 0:
                 destPoint_fila--;
@@ -259,12 +277,13 @@ public class Zombi : MonoBehaviour {
                 destPoint_fila = 0;
                 break;
         }
-        
+
         return;
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
 
         //Cada frame voy olvidando las distracciones
         if (probabilidadDistraccion < 1.0f)
@@ -275,7 +294,7 @@ public class Zombi : MonoBehaviour {
         //En cuanto distraiga algo inicializar distractor
 
         Distractores = GameObject.FindGameObjectsWithTag("Distractor");
-        
+
         if (Distractores.Length != 0)
         {
             foreach (GameObject Distractor in Distractores)
@@ -292,32 +311,36 @@ public class Zombi : MonoBehaviour {
         //Si distraen al zombi va hacia el objeto distractor
         if (estaDistraido)
         {
+            meDistraje = true;
             if (!repetido2)
             {
                 meDistraigo = Random.Range(0.0f, 1.0f);
+
             }
-                
-            print("Me distraigo:" + meDistraigo + "Prob Distraccion: " + probabilidadDistraccion);
-            if ((meDistraigo < probabilidadDistraccion) || !ActivarIA )
+
+            //print("Me distraigo:" + meDistraigo + "Prob Distraccion: " + probabilidadDistraccion);
+            if ((meDistraigo < probabilidadDistraccion) || !ActivarIA)
             {
+
                 distraccion();
                 repetido2 = true;
-            } else
+            }
+            else
             {
                 for (int i = 0; i < Distractores.Length; i++)
                 {
                     Distractores[i].GetComponent<Distractor>().distrae = false;
                 }
+                //meDistraje = false;
                 estaDistraido = false;
             }
 
-            
+
         }
 
         //Si estoy cerca del jugador voy a por el
-        if (distanciaJugador < umbralPerseguimiento)
+        if ((distanciaJugador < umbralPerseguimiento) && (!meDistraje))
         {
-            
             PersigueJugador();
         }
         else
@@ -325,10 +348,26 @@ public class Zombi : MonoBehaviour {
             // Choose the next destination point when the agent gets
             // close to the current one.
             repetido = false;
-            if (agent.remainingDistance < 0.5f) { 
+            meDistraje = false;
+            if (agent.remainingDistance < 0.5f)
+            {
                 GotoNextPoint();
             }
         }
     }
-        
+
+    private bool Waited(float seconds)
+    {
+        timerMax = seconds;
+        timer += Time.deltaTime;
+
+        if (timer >= timerMax)
+        {
+            timer = 0;
+            return true; //max reached - waited x - seconds
+        }
+
+        return false;
+    }
+
 }

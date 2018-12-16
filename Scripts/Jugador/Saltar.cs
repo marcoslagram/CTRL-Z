@@ -27,9 +27,11 @@ public class Saltar : MovimientoJugador {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.Space) && tocaSuelo == true)
+        if (Input.GetKey(KeyCode.Space) )//&& tocaSuelo == true
         {
-            myRigidBody.velocity = new Vector3(0, 4.5f, 0);
+            Debug.Log("Salto");
+
+            myRigidBody.AddForce(0f, 4.5f, 0f);
             tocaSuelo = false; //porque si saltas ya no estas tocando el suelo
         }
 

@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovimientoJugador : MonoBehaviour {
+public class MovimientoTurista : MonoBehaviour {
 
-
-   public float velocidad = 2f;
-   public float velocidadCarrera = 2.5f;
+    public float velocidad = 2f;
+    public float velocidadCarrera = 2.5f;
     private Vector3 teclas = new Vector3(0, 0, 0);
     private Vector3 movimiento = new Vector3(0, 0, 0);
 
-    private Inventory lista;
+
     //[SerializeField] private float velocidadGiro = 60; 
-//    private Vector3 giroJugador = new Vector3(0, 0, 0);
+    //    private Vector3 giroJugador = new Vector3(0, 0, 0);
 
     // Use this for initialization
     void Start()
     {
         // giroJugador = new Vector3(0, velocidadGiro * Time.deltaTime, 0);
-        lista = GameObject.Find("Inventory").GetComponent<Inventory>();
+        
     }
 
     // Update is called once per frame
@@ -26,9 +25,11 @@ public class MovimientoJugador : MonoBehaviour {
     {
         //Mueve normal
         DesplazamientoNormal();
-      //  Rotar();
-        if (Input.GetButton("Correr") && lista.correr==true) { 
-        Carrera();}
+        //  Rotar();
+        if (Input.GetButton("Correr"))
+        {
+            Carrera();
+        }
 
     }
 
@@ -46,7 +47,7 @@ public class MovimientoJugador : MonoBehaviour {
         transform.Translate(movimiento);
     }
     //Igual que desplazamiento normal pero más rapido
-   public void Carrera()
+    public void Carrera()
     {
         teclas.x = Input.GetAxis("Horizontal");
         teclas.z = Input.GetAxis("Vertical");
@@ -57,22 +58,4 @@ public class MovimientoJugador : MonoBehaviour {
 
         transform.Translate(movimiento);
     }
-
 }
-  /*  public void Rotar()
-    {
-
-        if (Input.GetKey(KeyCode.Z))
-        {
-            transform.eulerAngles -= giroJugador;
-        }
-        if (Input.GetKey(KeyCode.X))
-        {
-            transform.eulerAngles += giroJugador;
-        }
-
-    }*/
-
-
-     
-

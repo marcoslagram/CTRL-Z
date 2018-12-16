@@ -14,11 +14,27 @@ public class Dialogo: MonoBehaviour
         conversaciones = GameObject.Find("Gato").GetComponent<DialogoNPC>();
         //Aqui meter las conversaciones
 
+        //0=castellano 1=galego 2=inglés
+
+        if (Menu.idiomaElegido == 0)
+        {
+            //Aqui se meterían las frases en español
+        }
+
+        else if (Menu.idiomaElegido == 1)
+        {
+            //Aqui se meterían las frases en gallego
+        }
+
+        else if (Menu.idiomaElegido == 2)
+        {
+            //Aqui se meterían las frases en inglés
+        }
 
 
     }
 
-    
+
 
 }
 

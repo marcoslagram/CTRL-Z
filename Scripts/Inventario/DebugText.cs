@@ -57,14 +57,14 @@ public class DebugText : MonoBehaviour
         if (text.Contains("Sabela"))
         {
             nombre.text = "Sabela";
-            nombre.color = Color.red;
+            nombre.color = Color.black;
           
             
         }
         else if (text.Contains("Gato Místico"))
         {
             nombre.text = "Gato Místico";
-            nombre.color = Color.red;
+            nombre.color = Color.black;
         }
 
 

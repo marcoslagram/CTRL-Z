@@ -10,6 +10,7 @@ public class CamaraCont : MonoBehaviour {
 
     public Transform  centro;
 
+    //public Camera camaraAtras;
 
     public GameObject camaraAtras;
     public float distancia=4f;
@@ -41,10 +42,18 @@ public class CamaraCont : MonoBehaviour {
         }
 
 
-        else if (Input.GetButton("MirarAtras"))
+        if (Input.GetButton("MirarAtras"))
         {
-            this.transform.eulerAngles = new Vector3(0f, this.transform.eulerAngles.y +180f, 0f);
-          
+            //  this.transform.eulerAngles = new Vector3(0f, this.transform.eulerAngles.y +180f, 0f);
+           
+            //camaraAtras.enabled = true;
+           camaraAtras.SetActive(true);
+        }
+
+        else if (!Input.GetButton("MirarAtras"))
+        {
+       
+            camaraAtras.SetActive(false);
         }
 
         altura = Mathf.Clamp(altura, alturaMinima, alturaMaxima);

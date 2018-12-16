@@ -46,6 +46,7 @@ public class Control : MonoBehaviour {
     Economia economia;
 
     private DialogoNPC dialogo;
+    private List<Items> listaGuardar = new List<Items>();
 
     // Use this for initialization
     void Start () {
@@ -80,19 +81,8 @@ public class Control : MonoBehaviour {
         //  enemigo = GameObject.Find("Enemigo").GetComponent<Collider>();
 
          nuevosDatos.myItems = lista.myInventory;
-        //  LoadDatasControl();
-        /*   SaveDatos datos = new SaveDatos()
-           {
-               salud = 100,
-               energia = 100,
-               usos = 4,
-               myItems = new System.Collections.Generic.List<Items>(),
-               positionj = player.transform.position,
-               rotacionj = player.transform.rotation,
-               positionz = zombie.transform.position,
-               rotacionz = zombie.transform.rotation
-
-           };*/
+        
+        
         nuevosDatos.positionj = posicionj;
         nuevosDatos.rotacionj = rotacionj;
         nuevosDatos.positionc = posicionc;
@@ -108,6 +98,15 @@ public class Control : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+
+     //   nuevosDatos.myItems = 
+        enemigos = GameObject.FindGameObjectsWithTag("Zombie");
+        
+        posicionz = new Vector3[enemigos.Length];
+        rotacionz = new Quaternion[enemigos.Length];
+        nuevosDatos.positionz = new Vector3[enemigos.Length];
+        nuevosDatos.rotacionz = new Quaternion[enemigos.Length];
         tiempo = tiempo + 1 * Time.deltaTime;
         posicionj = player.transform.position;
         rotacionj = player.transform.rotation;
@@ -121,59 +120,22 @@ public class Control : MonoBehaviour {
 
         nuevosDatos.objetosActivos = GameObject.FindGameObjectsWithTag("Objectos");
         nuevosDatos.zombiesActivos = GameObject.FindGameObjectsWithTag("Zombie");
-       /* nuevosDatos.armas = lista.slotsArmas;
-        nuevosDatos.consumibles = lista.slotsConsumibles;
 
-
-        for (int i = 0; i < lista.slotsArmas.Length; i++)
-        {
-            nuevosDatos.armas[i].sprite = lista.slotsArmas[i].sprite;
-            nuevosDatos.consumibles[i].sprite = lista.slotsConsumibles[i].sprite;
-        }*/
-
-        //Debug.Log(DatosGuardados.g_GameDataInstance.savedGameData.armas[0].sprite);
-
-        Debug.Log(lista.myInventory.Count);
-        /* // posicionz = zombie.transform.position;
-         // rotacionz = player.transform.rotation;
-         //  Debug.Log(saludd.dentro);
-         // Debug.Log(tiempo);
-         nuevosDatos.positionj = posicionj;
-         nuevosDatos.rotacionj = rotacionj;
-         for (int i = 0; i < enemigos.Length; i++)
-         {
-             nuevosDatos.positionz[i] = posicionz[i] ;
-             nuevosDatos.rotacionz[i] = rotacionz[i];
-         }
-         // nuevosDatos.positionz = posicionz;
-        //  nuevosDatos.rotacionz = rotacionz;*/
-
-       // Debug.Log(DatosGuardados.g_GameDataInstance.savedGameData.myItems.Count);
-        //nuevosDatos.myItems = lista.myInventory;
+       // Debug.Log(tiempo);
+   //     Debug.Log(lista.myInventory.Count);
+      
+        nuevosDatos.myItems = lista.myInventory;
      //    Debug.Log(saludd.SaberSalud(.salud));
         nuevosDatos.salud = economia.salud;
        
         nuevosDatos.energia = lista.energia;
         nuevosDatos.usos = lista.usosControl;
-      //  nuevosDatos.sigue = dialogo.sigueJuego;
+       // listaGuardar = lista.myInventory;
+        //  nuevosDatos.sigue = dialogo.sigueJuego;
         //Debug.Log(nuevosDatos.usos);
 
         nuevosDatos.tiempo = tiempoDia.tiempo;
-      //  Debug.Log(lista.slotsConsumibles == lista.slotsArmas);
-        /*if (Input.GetKeyDown(KeyCode.K))
-        {
-            slotsConsumibles[0].sprite = slotsArmas[0].sprite;
-        }*/
-
-        /*   if (lista.myInventory.Count > 1)
-           {
-     Debug.Log(DatosGuardados.g_GameDataInstance.savedGameData.myItems[1].itemName+ "guardado");
-           }*/
-        /* if (enemigo.on)
-         {
-             Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");saludd.dentro || tiempo>=30f
-         }*/
-        //lista.slotsConsumibles = lista.slotsArmas;
+     
 
 
         for (int i = 0; i < enemigos.Length; i++) { 
@@ -183,10 +145,11 @@ public class Control : MonoBehaviour {
             {
                 dentro = true;
             }
-       else   if(distancia >= 0f && distancia <= 10.7f)
+       if(distancia >= 0f && distancia <= 10.7f)
             {
-                Debug.Log("11111");
+              //  Debug.Log("11111");
                 dentro = false;
+                tiempo = 0f;
             }
 
            
@@ -195,19 +158,19 @@ public class Control : MonoBehaviour {
         }
       
 //Debug.Log(dentro);
-        if (saludd.entrado)
+      /*  if (saludd.entrado)
         {
             tiempo = 0;
-        }
+        }*/
         
 
-        if (dentro || tiempo>=30f ) //|| Input.GetKeyDown(KeyCode.Z)
+        if (dentro || tiempo>=30f) //|| Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Z)
         {
             Debug.Log("Aqui");
           dentro = false;
             SaveDatasControl();
           //  SaveInventoryDisk();
-            tiempo = 0;
+            tiempo = 0f;
            /* if (saludd.dentro)
             {
                 tiempo = 0;
@@ -215,6 +178,7 @@ public class Control : MonoBehaviour {
         }
         //Debug.Log(lista.usosControl > 0);
  //&& lista.usosControl>0
+
         if (Input.GetKeyDown(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Z) && lista.usosControl > 0 )//
         {
             lista.usosControl--;
@@ -230,18 +194,21 @@ public class Control : MonoBehaviour {
     }
 
 
+    //Se guardan los datos
     public void SaveDatasControl()
-    { for (int i = 0; i < DatosGuardados.g_GameDataInstance.savedGameData.myItems.Count; i++)
+    {
+
+        //Para que guarde bien inventario
+        DatosGuardados.g_GameDataInstance.savedGameData.myItems = new List<Items>();
+
+        for (int i = 0; i < lista.myInventory.Count; i++)
         {
           
-            DatosGuardados.g_GameDataInstance.savedGameData.myItems.RemoveAt(0);
+            DatosGuardados.g_GameDataInstance.savedGameData.myItems.Add(lista.myInventory[i]);
         }
-        //  if (a == 1) { 
 
-        /* posicionz = zombie.transform.position;
-         rotacionz = player.transform.rotation;*/
-        //  Debug.Log(saludd.dentro);
-        // Debug.Log(tiempo);
+       
+
         enemigos = GameObject.FindGameObjectsWithTag("Zombie");
         nuevosDatos.positionj = posicionj;
         nuevosDatos.rotacionj = rotacionj;
@@ -252,25 +219,17 @@ public class Control : MonoBehaviour {
             nuevosDatos.positionz[i] = posicionz[i];
             nuevosDatos.rotacionz[i] = rotacionz[i];
         }
-      //  if (a == 1) {
-       
-        //nuevosDatos.myItems = lista.myInventory;
-        //    a = 2;}
-        
-        
-        /* nuevosDatos.positionz = posicionz;
-         nuevosDatos.rotacionz = rotacionz;*/
-        DatosGuardados.g_GameDataInstance.savedGameData.myItems = new List<Items>();
+
 
 
         DatosGuardados.g_GameDataInstance.savedGameData.salud = nuevosDatos.salud;
         DatosGuardados.g_GameDataInstance.savedGameData.energia = nuevosDatos.energia;
         //DatosGuardados.g_GameDataInstance.savedGameData.usos = nuevosDatos.usos;
         DatosGuardados.g_GameDataInstance.savedGameData.tiempo = nuevosDatos.tiempo;
-       // DatosGuardados.g_GameDataInstance.savedGameData.armas = nuevosDatos.armas;
-       // DatosGuardados.g_GameDataInstance.savedGameData.consumibles = nuevosDatos.consumibles;
-        // DatosGuardados.g_GameDataInstance.savedGameData.sigue = nuevosDatos.sigue;
-        //  DatosGuardados.g_GameDataInstance.savedGameData.myItems = nuevosDatos.myItems;
+      
+
+        Debug.LogError("PASA POR Aqui ");
+     
         DatosGuardados.g_GameDataInstance.savedGameData.objetosActivos = nuevosDatos.objetosActivos;
         DatosGuardados.g_GameDataInstance.savedGameData.zombiesActivos = nuevosDatos.zombiesActivos;
         DatosGuardados.g_GameDataInstance.savedGameData.positionj = nuevosDatos.positionj;
@@ -280,58 +239,14 @@ public class Control : MonoBehaviour {
         DatosGuardados.g_GameDataInstance.savedGameData.positionz = nuevosDatos.positionz;
         DatosGuardados.g_GameDataInstance.savedGameData.rotacionz = nuevosDatos.rotacionz;
 
-/*
-        for (int i = 0; i < lista.slotsArmas.Length; i++)
-        {
-            DatosGuardados.g_GameDataInstance.savedGameData.armas[i].sprite = nuevosDatos.armas[i].sprite;
-            DatosGuardados.g_GameDataInstance.savedGameData.consumibles[i].sprite = nuevosDatos.consumibles[i].sprite;
-        }*/
 
-        for (int i = 0; i < nuevosDatos.myItems.Count; i++)
-        {
-            DatosGuardados.g_GameDataInstance.savedGameData.myItems.Add(nuevosDatos.myItems[i]);
-        }
-        
-           // a = 2;}
-
-        //  Debug.Log(DatosGuardados.g_GameDataInstance.savedGameData.myItems[1].itemName + "guardado");
-        /*   if (lista.myInventory.Count > 1)
-           {
-               Debug.Log(DatosGuardados.g_GameDataInstance.savedGameData.myItems[1].itemName + "guardado");
-           }*/
-        // Debug.Log(DatosGuardados.g_GameDataInstance.savedGameData.positionj);
-        //  Debug.Log(DatosGuardados.g_GameDataInstance.savedGameData.salud+"      1");
-        // Debug.Log(nuevosDatos + "      2");
 
     }
 
 
-    /*
-
-    public void SaveInventoryDisk()
-    {
-        // 1) Path check
-        if (!Directory.Exists("mySaves"))
-        {
-            Directory.CreateDirectory("mySaves");
-        }
-        // 2) Binary formatter
-        BinaryFormatter myFormatter = new BinaryFormatter();
-
-        // 3) Create file
-        FileStream saveFile = File.Create("mySaves/myInventory.myBinary");
-
-        // 4) Reference to data being saved
-       
-        localCopyOfData.myItems= DatosGuardados.g_GameDataInstance.savedGameData.myItems;
-        // 5) Writing data in binary form
-        myFormatter.Serialize(saveFile, localCopyOfData.myItems);
-        // 6) Close file!!!!! EXTREMELY IMPORTANT
-        saveFile.Close();
-    
-}*/
 
 
+    //Se cargan
 
     public void LoadDatasControl()
     {
@@ -359,21 +274,18 @@ public class Control : MonoBehaviour {
         }
 
         
-
+        
 
             economia.salud=DatosGuardados.g_GameDataInstance.savedGameData.salud;
         saludd.SaberSalud(economia.salud);
         lista.energia = DatosGuardados.g_GameDataInstance.savedGameData.energia;
         lista.SaberEnergia(lista.energia);
-       // lista.usosControl = DatosGuardados.g_GameDataInstance.savedGameData.usos;
-       // Debug.Log(lista.usosControl);
-       /* lista.SaberUsos(lista.usosControl);*/
+       
+
         tiempoDia.tiempo = DatosGuardados.g_GameDataInstance.savedGameData.tiempo;
         tiempoDia.SaberTiempo(tiempoDia.tiempo);
 
-       // nuevosDatos.armas = DatosGuardados.g_GameDataInstance.savedGameData.armas ;
-        //nuevosDatos.consumibles = DatosGuardados.g_GameDataInstance.savedGameData.consumibles;
-        //  nuevosDatos.sigue = DatosGuardados.g_GameDataInstance.savedGameData.sigue;
+
         nuevosDatos.objetosActivos= DatosGuardados.g_GameDataInstance.savedGameData.objetosActivos ;
         nuevosDatos.zombiesActivos = DatosGuardados.g_GameDataInstance.savedGameData.zombiesActivos;
         nuevosDatos.positionj =   DatosGuardados.g_GameDataInstance.savedGameData.positionj;
@@ -385,23 +297,15 @@ public class Control : MonoBehaviour {
 
 
 
-      /*  for (int i = 0; i < lista.slotsArmas.Length; i++)
-        {
-            nuevosDatos.armas[i].sprite =  DatosGuardados.g_GameDataInstance.savedGameData.armas[i].sprite;
-            nuevosDatos.consumibles[i].sprite = DatosGuardados.g_GameDataInstance.savedGameData.consumibles[i].sprite;
-        }
+        //Para que guarde bien inventario
 
-
+        lista.myInventory = new List<Items>();
 
         for (int i = 0; i < DatosGuardados.g_GameDataInstance.savedGameData.myItems.Count; i++)
         {
-            nuevosDatos.myItems.Add(DatosGuardados.g_GameDataInstance.savedGameData.myItems[i]);
-        }*/
+            lista.myInventory.Add(DatosGuardados.g_GameDataInstance.savedGameData.myItems[i]);
+        }
         
-       // nuevosDatos.myItems = DatosGuardados.g_GameDataInstance.savedGameData.myItems;
-
-        //lista.SaberItems(lista.myInventory);
-        //Debug.Log(DatosGuardados.g_GameDataInstance.savedGameData.positionj);
 
         player.transform.position=nuevosDatos.positionj;
         player.transform.rotation = nuevosDatos.rotacionj;
@@ -412,23 +316,7 @@ public class Control : MonoBehaviour {
         }
 
        
-        /*zombie.transform.position = nuevosDatos.positionz;
-        zombie.transform.rotation = nuevosDatos.rotacionz;*/
+     
     }
-    /*
-    private void LoadPlayerDataFromDisk()
-    {
-        // 0) Binary formatter
-        BinaryFormatter myFormatter = new BinaryFormatter();
-        // 1) File opening
-        FileStream fileToLoad = File.Open("mySaves/myInventory.myBinary", FileMode.Open);
-        // 2) Deserialize to temporal variable
-        SaveDatos tempCopyOfData = (SaveDatos)myFormatter.Deserialize(fileToLoad); // Lo fuerza a ser de GameStatics y es Serializable
-        // 3) Close file!!!!! EXTREMELY IMPORTANT
-        fileToLoad.Close();
-        // 4) Decide what to do with the loaded data
-        DatosGuardados.g_GameDataInstance.savedGameData.myItems = tempCopyOfData.myItems;
-    }
-
-    */
+ 
 }

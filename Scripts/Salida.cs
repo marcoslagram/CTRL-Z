@@ -35,7 +35,7 @@ public class Salida : MonoBehaviour {
         {
             for (int i = 0;i< invetarioDia.myInventory.Count; i++)
             {
-                if (invetarioDia.myInventory[i].itemName.ToString() == "LataConserva")
+                if (invetarioDia.myInventory[i].itemName.ToString() == "LataConserva"  || invetarioDia.myInventory[i].itemName.ToString() == "LataConserva(Clone)")
                 {
                     usosMas = true;
                     cantidad = invetarioDia.myInventory[i].cantidad;

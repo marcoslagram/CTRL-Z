@@ -20,7 +20,7 @@ public class Atacar : Interactable
 
         debugg = GameObject.Find("DebugText").GetComponent<DebugText>();
         player = GameObject.Find("Cube");
-        enemy = GameObject.FindGameObjectsWithTag("Zombie");
+       
         saludEnemigo = 100;
 
     }
@@ -29,7 +29,7 @@ public class Atacar : Interactable
     void Update()
     {
         compro = false;
-
+ enemy = GameObject.FindGameObjectsWithTag("Zombie");
         /*float distancia = Vector3.Distance(enemy.transform.position, player.transform.position);
         
         if (distancia <= maxdistance)
@@ -73,13 +73,36 @@ public class Atacar : Interactable
             //Distancia del jugador al objecto
             float distancia = Vector3.Distance(enemy[i].transform.position, GameObject.Find("Cube").transform.position);
 
+         //   Debug.Log(distancia);
             //Si es menor que la máxima distancia de interaccion puede interactuar
 
             if (distancia <= maxdistance)
             {
                 //mensaje debug
                 if (GestionDias.dia == 5) {
-                debugg.DebuggingText("Puede matar Zombie");
+
+                debugg.DebuggingText("Puede matar al Zombi");
+
+           // Debug.Log("ma");
+
+                    //Idioma elegido
+                    if (Menu.idiomaElegido == 0)
+                    {
+                        //debugg.DebuggingText("Puede matar al Zombi");
+                    }
+
+
+                    else if (Menu.idiomaElegido == 1)
+                    {
+                        //debugg.DebuggingText("Pode matar ao Zombi");
+                    }
+
+                    else if (Menu.idiomaElegido == 2)
+                    {
+                        //debugg.DebuggingText("You can kill to the zombie");
+                    }
+
+
                 }
                 s = 0;
                 compro = true;
@@ -87,6 +110,7 @@ public class Atacar : Interactable
 
                 if (Input.GetKeyDown(KeyCode.Mouse0) && GestionDias.dia==5)         //Input.GetMouseButton(0), con esto no funciona
                 {
+                   
                     saludEnemigo = saludEnemigo - 25;
                     if (saludEnemigo == 0)
                     {
