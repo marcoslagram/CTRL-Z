@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 [System.Serializable]
+
 
 public class Items{
 
 
     public string itemName;
-    // public Sprite itemSprite = null;
+    //public Sprite itemSprite = null;
     public string itemDescription;
     public ItemType itemType = ItemType.SinDefinir;
     public ItemClass itemClass = ItemClass.SinDeterminar;

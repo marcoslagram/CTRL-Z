@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1870274552736162}
+  m_IsPrefabAsset: 1
+--- !u!1 &1870274552736162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4218179264104388}
+  - component: {fileID: 114689370373559696}
+  - component: {fileID: 114864230142253210}
+  - component: {fileID: 114455259755709768}
+  - component: {fileID: 114019152795044720}
+  - component: {fileID: 114270094371965508}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4218179264104388
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870274552736162}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0627079, y: 1.7379637, z: -0.63417745}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114019152795044720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870274552736162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d019f5642331c44980fb0e8caf568c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  zombie: {fileID: 0}
+  camara: {fileID: 0}
+  consumibles: {fileID: 0}
+  armas: {fileID: 0}
+  zombiesSeri: []
+  zombiesRotaSeri: []
+  lista: {fileID: 0}
+  savedGameData:
+    salud: 0
+    energia: 100
+    usos: 4
+    tiempo: 0
+    myItems: []
+    positionj: {x: 0, y: 0, z: 0}
+    rotacionj: {x: 0, y: 0, z: 0, w: 0}
+    positionz: []
+    rotacionz: []
+    positionc: {x: 0, y: 0, z: 0}
+    rotacionc: {x: 0, y: 0, z: 0, w: 0}
+    objetosActivos: []
+    zombiesActivos: []
+  zombies: []
+--- !u!114 &114270094371965508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870274552736162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692e00c69dea3ea438c02038c4296770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114455259755709768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870274552736162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0ee6e6349d55246b1ff2c747f14b3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  zombie: {fileID: 0}
+  camara: {fileID: 0}
+  consumibles: {fileID: 0}
+  armas: {fileID: 0}
+  nuevosDatos:
+    salud: 0
+    energia: 0
+    usos: 0
+    tiempo: 0
+    myItems: []
+    positionj: {x: 0, y: 0, z: 0}
+    rotacionj: {x: 0, y: 0, z: 0, w: 0}
+    positionz: []
+    rotacionz: []
+    positionc: {x: 0, y: 0, z: 0}
+    rotacionc: {x: 0, y: 0, z: 0, w: 0}
+    objetosActivos: []
+    zombiesActivos: []
+  localCopyOfData:
+    salud: 0
+    energia: 0
+    usos: 0
+    tiempo: 0
+    myItems: []
+    positionj: {x: 0, y: 0, z: 0}
+    rotacionj: {x: 0, y: 0, z: 0, w: 0}
+    positionz: []
+    rotacionz: []
+    positionc: {x: 0, y: 0, z: 0}
+    rotacionc: {x: 0, y: 0, z: 0, w: 0}
+    objetosActivos: []
+    zombiesActivos: []
+--- !u!114 &114689370373559696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870274552736162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af87cc70029fec40a7b916df35f1fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiempo: 0
+  saludH: {fileID: 0}
+  tiempoH: {fileID: 0}
+--- !u!114 &114864230142253210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870274552736162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616d53796cb0a63449c5b465f74dcf2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  salud: 100

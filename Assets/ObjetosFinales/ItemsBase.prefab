@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1153977205003342}
+  m_IsPrefabAsset: 1
+--- !u!1 &1153977205003342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4937508576263608}
+  - component: {fileID: 114980593925661186}
+  m_Layer: 0
+  m_Name: ItemsBase
+  m_TagString: ItemsBase
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4937508576263608
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1153977205003342}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0627079, y: 1.7379637, z: -0.63417745}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114980593925661186
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1153977205003342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4668cb6f453a70245bc5edbb2e6c8a8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myItems:
+  - itemName: Palo
+    itemSprite: {fileID: 21300000, guid: 3e076e20e8acf6b4da5897d1143fdbe0, type: 3}
+    itemDescription: Contruir Arma
+    itemType: 0
+    itemClass: 0
+    id: 0
+    cantidad: 1
+  - itemName: LataConserva
+    itemSprite: {fileID: 21300000, guid: afbcb7e8669b58d4da924061cf0552fc, type: 3}
+    itemDescription: Para aumentar control Z en 1 uso(llevaselo al gato)
+    itemType: 4
+    itemClass: 1
+    id: 1
+    cantidad: 1
+  - itemName: PiedraEspecial
+    itemSprite: {fileID: 21300000, guid: 0af32ed9ce01b234e86e8399735e086b, type: 3}
+    itemDescription: Para aumentar salud 100
+    itemType: 1
+    itemClass: 1
+    id: 2
+    cantidad: 1
+  - itemName: Tarta
+    itemSprite: {fileID: 21300000, guid: fd70dd194e406ce4f96d24d750ebfcc3, type: 3}
+    itemDescription: Sube 100 energia
+    itemType: 5
+    itemClass: 1
+    id: 3
+    cantidad: 1
+  - itemName: Piedra
+    itemSprite: {fileID: 21300000, guid: 80ef31673ed49c942b9f8d1124eed1a2, type: 3}
+    itemDescription: Construir Arma
+    itemType: 7
+    itemClass: 0
+    id: 4
+    cantidad: 1
+  - itemName: Clavos
+    itemSprite: {fileID: 21300000, guid: ec5228469a61fc94e91acb503dd53dce, type: 3}
+    itemDescription: Construir Arma
+    itemType: 2
+    itemClass: 0
+    id: 5
+    cantidad: 1
+  - itemName: Cuerda
+    itemSprite: {fileID: 21300000, guid: 243ba40b0e667e54e8ff51c0ee6bc195, type: 3}
+    itemDescription: Construir Arma
+    itemType: 3
+    itemClass: 0
+    id: 6
+    cantidad: 1
+  - itemName: Radio
+    itemSprite: {fileID: 21300000, guid: eae9a43cb2715b24fa4062eabad20818, type: 3}
+    itemDescription: Distraccion Zombies
+    itemType: 8
+    itemClass: 1
+    id: 7
+    cantidad: 1

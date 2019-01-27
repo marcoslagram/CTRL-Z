@@ -6,6 +6,14 @@ TagManager:
   tags:
   - ItemsBase
   - Objectos
+  - Dialogo
+  - Baliza
+  - Jugador
+  - Zombie
+  - Terrain
+  - Situador
+  - Distractor
+  - Escalera
   layers:
   - Default
   - TransparentFX

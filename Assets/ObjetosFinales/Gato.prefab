@@ -1,0 +1,323 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1296461285008760}
+  m_IsPrefabAsset: 1
+--- !u!1 &1296461285008760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4066763662540082}
+  - component: {fileID: 33418848612074610}
+  - component: {fileID: 23677350986223630}
+  - component: {fileID: 136613753176572244}
+  - component: {fileID: 136048276059527106}
+  - component: {fileID: 114711735565432774}
+  m_Layer: 0
+  m_Name: Gato
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1576990676579968
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4056113728836770}
+  - component: {fileID: 33830162535550126}
+  - component: {fileID: 23180541942724712}
+  - component: {fileID: 65076131419116934}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4056113728836770
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1576990676579968}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.45, y: 0, z: 0}
+  m_LocalScale: {x: 0.32959, y: 1, z: 0.42922}
+  m_Children: []
+  m_Father: {fileID: 4066763662540082}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4066763662540082
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1296461285008760}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 101.5, y: 1.09, z: 82.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4056113728836770}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23180541942724712
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1576990676579968}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!23 &23677350986223630
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1296461285008760}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33418848612074610
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1296461285008760}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33830162535550126
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1576990676579968}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65076131419116934
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1576990676579968}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114711735565432774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1296461285008760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8df7ec7927a0ba48a24efa730f9ae21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxdistance: 5
+  distancia: 0
+  dentro: 0
+  elegirConversacion: 0
+  empiezaJuego: 0
+  sigueJuego: 0
+  oracionEmpezar:
+  - "Sabela\n\nDios m\xEDo, esto est\xE1 peor de lo que me esperaba.. Yo s\xF3lo quer\xEDa
+    tener un lugar al que escapar y al final he acabado haciendo de recadera para
+    un gato parlante con poderes...\r\n"
+  - "Gato M\xEDstico\n\nOye humana, esa lengua.\r\n"
+  - "Sabela\n\n\xBF\xA1Q-qu\xE9...!? \xBFGatito...?"
+  - "\rGato M\xEDstico\n\nGato M\xEDstico para ti. Pero s\xED, soy yo. Estoy usando
+    el poco poder que me queda para comunicarme contigo.\r\n"
+  - "Sabela\n\nEspera, \xBFpuedes hablar con la mente a distancia pero no puedes levantarte
+    y salir de la cueva?\r\n"
+  - "Gato M\xEDstico\n\n\xBFY para qu\xE9 querr\xEDa hacer eso?\r\n"
+  - "Sabela\n\nEm, no s\xE9, \xBFpara ayudarme quiz\xE1? Esto no es precisamente un
+    paseo por el parque...\r\n"
+  - "Gato M\xEDstico\n\nEfectivamente, es un paseo por una urbanizaci\xF3n. \r\n"
+  - "Sabela\n\n\xBFTe est\xE1s comunicando conmigo para algo \xFAtil o es solo para
+    poder vacilarme?\r\n"
+  - "Gato M\xEDstico\n\n\xA1Nunca cuestiones las decisiones del todopoderoso Gato
+    M\xEDstico! S\xF3lo quer\xEDa asegurarme de que sabes lo que tienes que hacer.\r\n"
+  - "Sabela\n\nAcabamos de hablar de ello, \xBFc\xF3mo me iba a olvidar?\r\n"
+  - "Gato M\xEDstico\n\nYa bueno, pero hay gente que no tiene ni idea, \xA1as\xED
+    que recu\xE9rdalo!\r\n"
+  - "Sabela\n\nEm, vale vale...A ver, tengo que evitar a todos esos bichos para que
+    no me maten y buscar por ah\xED los objetos que necesitamos antes de que se haga
+    de noche y no sea capaz de llegar a la cueva. \r\n"
+  - "Gato M\xEDstico\n\nEspl\xE9ndido. Ahora humana, dejate de charlas y empieza de
+    una vez, que esto se est\xE1 alargando demasiado. \r\n"
+  - "Sabela\n\nSi eres t\xFA el que me est\xE1 frenando\u2026\r\n"
+  oracionControl:
+  - "Si quieres volver\na una acci\xF3n pasada\nusa CTRL+Z."
+  oracionInventario:
+  - 'Pulsa I para
+
+    acceder al
+
+    inventario'
+  oracionConverNPC1:
+  - "Gato M\xEDstico\n\nHm\u2026."
+  - "Sabela\n\n\xBFPasa algo?\r\n"
+  - "Gato M\xEDstico\n\n\u2026"
+  - "Sabela\n\nOye, \xBFtengo monos en la cara o qu\xE9?"
+  - "Gato M\xEDstico\n\nAh, estaba pensando en algo.\r\n"
+  - "Gato M\xEDstico\n\nHumana, tengo una duda. \xBFEres m\xE1s de perros o de gatos?.\r\n"
+  - 'Perros
+
+'
+  - 'Gatos
+
+'
+  oracionConverJugadorV1:
+  - "Gato M\xEDstico\n\n\u2026.Bueno, pues pidele ayuda al Perro M\xEDstico ma\xF1ana.
+    [-2 usos del CtrlZ]"
+  oracionConverJugadorF1:
+  - "Gato M\xEDstico\n\nSabia respuesta, humana. Pero a nadie le gustan los pelotas.
+    [-1 uso del CtrlZ]\r"
+  oracionConverNPC2:
+  - "Sabela\n\nOye, \xBFen qu\xE9 pensabas ayer?\n"
+  - "Gato M\xEDstico\n\nOh, eso."
+  - "Sabela\n\nS\xED, eso."
+  - "Gato M\xEDstico\n\n\xBFCrees que la gente tiene derecho a ser feliz o debe gan\xE1rselo?"
+  - Ehhhhhh
+  - Hmmmm
+  oracionConverJugadorV2:
+  - "Gato M\xEDstico\n\n\xBFQu\xE9 te pasa, humana? \xBFNo sabes usar la cabeza? [-1
+    uso del CtrlZ]"
+  oracionConverJugadorF2:
+  - "Gato M\xEDstico\n\nVeo que al menos lo intentas, humana. Toma, una ayudita. [+3
+    latas vac\xEDa]"
+  oracionConverNPC3:
+  - "Sabela\n\nA ver, \xBFme lo vas a decir o\u2026?"
+  - "Gato M\xEDstico\n\n\xBFDecir el qu\xE9?"
+  - 'Sabela
+
+
+    Lo que estabas pensando antes.'
+  - "Gato M\xEDstico\n\nAh, solo pensaba en que tiene que ser dif\xEDcil."
+  - "Sabela\n\n\xBFDif\xEDcil? \xBFA qu\xE9 te refieres?"
+  - "Gato M\xEDstico\n\nBueno, ya sabes."
+  - "Gato M\xEDstico\n\n\xBFEs la tierra un lugar mejor sin humanos?"
+  - "S\xED"
+  - No
+  oracionConverJugadorV3:
+  - "Gato M\xEDstico\n\n\u2026 . Pues quiz\xE1 deber\xEDas hacer algo al respecto,
+    \xBFno? "
+  oracionConverJugadorF3:
+  - "Gato M\xEDstico\n\nBah, menuda respuesta m\xE1s aburrida. Vamos a hacer tu viaje
+    de ma\xF1ana algo m\xE1s\u2026 \u201Cdivertido\u201D en compensaci\xF3n. [-1 uso
+    del CtrlZ]"
+  oracionConverNPC4:
+  - "Sabela\n\nVale, no lo s\xE9. \xBFQu\xE9 es tan dif\xEDcil?"
+  - "Gato M\xEDstico\n\nPues, bueno eso, ser...t\xFA."
+  - 'Sabela
+
+
+    ...'
+  - "Sabela\n\n\xBFA qu\xE9 te refieres por ser yo?"
+  - "Gato M\xEDstico\n\n\xBFCrees en un poder mayor que la humanidad?"
+  - "S\xED"
+  - No
+  oracionConverJugadorV4:
+  - "Gato M\xEDstico\n\nEvidentemente, humana, esta era la respuesta acertada. Ser\xEDas
+    muy descuidada (e imb\xE9cil) si respondieras lo contrario. "
+  oracionConverJugadorF4:
+  - "Gato M\xEDstico\n\n\xBFQU\xC9? \xBF\xA1Est\xE1s poni\xE9ndome al mismo nivel
+    que a los sucios humanos!? [-1 uso del CtrlZ]"
+  dialogo: {fileID: 0}
+  tutorial: {fileID: 0}
+--- !u!136 &136048276059527106
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1296461285008760}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!136 &136613753176572244
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1296461285008760}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.7935433
+  m_Height: 3.5870867
+  m_Direction: 1
+  m_Center: {x: -1.0882931, y: 0, z: -0.20525026}
